@@ -1,0 +1,13 @@
+[debug] [2020-11-18T05:32:29.371Z] ----------------------------------------------------------------------
+[debug] [2020-11-18T05:32:29.373Z] Command:       /home/pritish/.nvm/versions/node/v14.15.0/bin/node /home/pritish/.nvm/versions/node/v14.15.0/bin/firebase serve
+[debug] [2020-11-18T05:32:29.373Z] CLI Version:   8.16.2
+[debug] [2020-11-18T05:32:29.373Z] Platform:      linux
+[debug] [2020-11-18T05:32:29.373Z] Node Version:  v14.15.0
+[debug] [2020-11-18T05:32:29.374Z] Time:          Wed Nov 18 2020 11:02:29 GMT+0530 (India Standard Time)
+[debug] [2020-11-18T05:32:29.374Z] ----------------------------------------------------------------------
+[debug] [2020-11-18T05:32:29.374Z] 
+[debug] [2020-11-18T05:32:29.383Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-18T05:32:29.383Z] > authorizing via signed-in user
+[debug] [2020-11-18T05:32:29.384Z] [iam] checking project file-validation-engine for permissions ["firebase.projects.get"]
+[debug] [2020-11-18T05:32:29.387Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/file-validation-engine:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
