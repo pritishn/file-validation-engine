@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../firebase/firebase-init";
-import M from "../materialize";
+import M from "@material-ui/core";
 import { BrowserRouter, Link } from "react-router-dom";
 import ReactDOM, { render } from "react-dom";
 import database from "../datastore";

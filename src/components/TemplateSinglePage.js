@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import M from '../materialize.min';
+import M from "@material-ui/core";
 import ReactDOM from 'react-dom';
 
 class LoginPage extends Component {
