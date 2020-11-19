@@ -39,7 +39,7 @@ class LoginPage extends Component {
 	render () {
 		return this.state.username !== '' ? (
 			<div className='container' style={{ marginTop: '5%' }}>
-				<div class='card' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
+				<div class='card  z-depth-3' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
 						<img src={''} style={{ width: '100px' }} />
 						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
@@ -61,7 +61,7 @@ class LoginPage extends Component {
 			</div>
 		) : (
 			<div className='container' style={{ marginTop: '5%' }}>
-				<div class='card' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
+				<div class='card z-depth-2	' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
 						<img src={''} style={{ width: '100px' }} />
 						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>

@@ -11,7 +11,7 @@ class ViewTemplates extends Component {
         const temps = templates.map(temp =>{
             return (
                 <div class="center col s4 m4 ">
-                    <div class="card small ">
+                    <div class="card small  z-depth-3 ">
                         <div class="card-content">
                         <span class="card-title">{temp.name}</span>
                             <p>{temp.description}</p>

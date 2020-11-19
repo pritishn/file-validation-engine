@@ -45,7 +45,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App" >
+        <div className="App" style={{minHeight: "100vh"}} >
           <Navbar />
           <Switch>
             <Route exact path="/" component={LoginPage} />
