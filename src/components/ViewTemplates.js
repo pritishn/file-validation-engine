@@ -3,6 +3,7 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import database from "../datastore";
 import addicon from '../add.svg';
 import ReactDOM from 'react-dom';
+import TemplateMinimal from './TemplateMinimal';
 
 class ViewTemplates extends Component {
     render() {
@@ -11,7 +12,7 @@ class ViewTemplates extends Component {
         const temps = templates.map(temp =>{
             return (
                 <div class="center col s4 m4 ">
-                    <div class="card small  z-depth-3 ">
+                    {/* <div class="card small  z-depth-3 ">
                         <div class="card-content">
                         <span class="card-title">{temp.name}</span>
                             <p>{temp.description}</p>
@@ -20,7 +21,8 @@ class ViewTemplates extends Component {
                             <Link to={'/templates/'+temp.templateID} ></Link>
                         <a href="" className="white-text">View This Template</a>
                         </div>
-                    </div>
+                    </div> */}
+                    <TemplateMinimal class="center col s4 m4"/>
                 </div>
         ) 
        })
