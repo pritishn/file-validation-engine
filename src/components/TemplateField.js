@@ -7,7 +7,7 @@ class TemplateField extends Component {
   state = {
     headerName: "",
     dataType: "1",
-    required: "",
+    required: false,
     dateFormat: "",
     group: "",
     regex: "",
@@ -61,15 +61,34 @@ class TemplateField extends Component {
     this.setState({
       group: e.target.value,
     });
-    console.log(this.state.group)
   };
 
+  //Implement this function properly
   handleRequired = (e) => {
     e.preventDefault();
+    if (e.target.value === "on") {
+      this.setState({
+        required: true,
+      });
+    } else {
+      this.setState({
+        required: false,
+      });
+    }
+  };
+
+  handleRegex = (e) => {
+    e.preventDefault();
     this.setState({
-      required: e.target.value,
+      regex: e.target.value,
     });
-    console.log(this.state.required);
+  };
+
+  handleDB = (e) => {
+    e.preventDefault();
+    this.setState({
+      databaseQuery: e.target.value,
+    });
   };
 
   handleRegexShow = (e) => {
@@ -110,7 +129,7 @@ class TemplateField extends Component {
     const displayRegex = this.state.isRegexShowing ? (
       <div className="col s6 m6">
         <label>Regex</label>
-        <input name="regex" required />
+        <input onChange={this.handleRegex} name="regex" required />
       </div>
     ) : (
       <div></div>
@@ -119,7 +138,7 @@ class TemplateField extends Component {
     const displayDB = this.state.isDBShowing ? (
       <div className="col s6 m6">
         <label>Database</label>
-        <input name="dbName" required />
+        <input onChange={this.handleDB} name="dbName" required />
       </div>
     ) : (
       <div></div>
@@ -168,7 +187,13 @@ class TemplateField extends Component {
             </div>
             <div className="input-field col s1 m1">
               <label>
-                <input onChange={this.handleRequired} className="filled-in" name="required" type="checkbox" />
+                <input
+                  defaultValue
+                  onChange={this.handleRequired}
+                  className="filled-in"
+                  name="required"
+                  type="checkbox"
+                />
                 <span>Required</span>
               </label>
             </div>
