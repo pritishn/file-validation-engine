@@ -6,18 +6,19 @@ class TemplateField extends Component {
   }
   state = {
     headerName: "",
-    dataType: "",
+    dataType: "1",
     required: "",
+    dateFormat: "",
     group: "",
     regex: "",
-    databaseQuery:"",
+    databaseQuery: "",
     isDateShowing: false,
     isDBShowing: false,
     isRegexShowing: false,
     gotData: false,
   };
 
-  setDatetotrue = (e) => {
+  setDateToTrue = (e) => {
     e.preventDefault();
     if (e.target.value === "4") {
       this.setState({
@@ -28,6 +29,47 @@ class TemplateField extends Component {
         isDateShowing: false,
       });
     }
+  };
+
+  // DevLog: Pritish
+  //Check all these handle functions. They are apparantly updating state value 1 step late.
+  //Make a console log and check for clarifications.
+  // Also check the required handle function. Its value is either on or null.
+  handleHeaderName = (e) => {
+    e.preventDefault();
+    this.setState({
+      headerName: e.target.value,
+    });
+  };
+
+  handleDataType = (e) => {
+    e.preventDefault();
+    this.setState({
+      dataType: e.target.value,
+    });
+  };
+
+  handleDateType = (e) => {
+    e.preventDefault();
+    this.setState({
+      dateType: e.target.value,
+    });
+  };
+
+  handleGroup = (e) => {
+    e.preventDefault();
+    this.setState({
+      group: e.target.value,
+    });
+    console.log(this.state.group)
+  };
+
+  handleRequired = (e) => {
+    e.preventDefault();
+    this.setState({
+      required: e.target.value,
+    });
+    console.log(this.state.required);
   };
 
   handleRegexShow = (e) => {
@@ -94,11 +136,18 @@ class TemplateField extends Component {
                 id="header_name"
                 type="text"
                 className="validate"
+                onChange={this.handleHeaderName}
               />
             </div>
             <div className="input-field col s2 m2">
-              <select onChange={this.setDatetotrue} className="browser-default">
-                <option value="1" selected>
+              <select
+                onChange={(e) => {
+                  this.handleDataType(e);
+                  this.setDateToTrue(e);
+                }}
+                className="browser-default"
+              >
+                <option value="1" defaultValue>
                   String
                 </option>
                 <option value="2">Number</option>
@@ -114,18 +163,17 @@ class TemplateField extends Component {
                 id="group_name"
                 type="text"
                 className="validate"
+                onChange={this.handleGroup}
               />
             </div>
             <div className="input-field col s1 m1">
               <label>
-                <input className="filled-in" name="required" type="checkbox" />
+                <input onChange={this.handleRequired} className="filled-in" name="required" type="checkbox" />
                 <span>Required</span>
               </label>
             </div>
             <div className="row ">
-              <div
-                className="field-icons right s4 m4 alternate-option"
-              >
+              <div className="field-icons right s4 m4 alternate-option">
                 <a
                   className="waves-effect  waves-light btn-small black"
                   style={{ marginRight: "10px" }}
