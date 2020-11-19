@@ -17,6 +17,8 @@ import database from "./datastore";
 import TemplateField from "./components/TemplateField";
 import './App.css';
 import TemplateMinimal from "./components/TemplateMinimal";
+import history from "./components/history";
+
 
 class App extends Component {
   state = {
@@ -66,6 +68,7 @@ class App extends Component {
             <Route path="/upload" component={UploadPage} />
             <Route exact path="/template_field" component={TemplateField} />
             <Route exact path="/template_minimal" component={TemplateMinimal} />
+            <Route exact path="/history" component={history} />
             {/* <Route path='/template/:id' component={ShowOneTemplate} /> */}
           </Switch>
         </div>
