@@ -84,8 +84,8 @@ class TemplateField extends Component {
     );
 
     return (
-      <div className="container">
-        <div className="card-panel">
+      <div className="container col s12 m12">
+        <div className="card-panel z-depth-2">
           <div className="row ">
             <div className="input-field col s2 m2">
               <label for="header_name">Header Name</label>

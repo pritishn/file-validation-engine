@@ -4,13 +4,16 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import ReactDOM, { render } from 'react-dom';
 import database from '../datastore';
 import NotLoggedIn from './NotLoggedIn';
+import TemplateField from './TemplateField';
 
 class MakeNewTemplates extends Component {
 	state = {
 		name: '',
 		description: '',
 		fields: [],
-		dependencies: []
+		grouprelations: [],
+		showgroupform:false,
+		form_submitted:false
 	};
 
 	createFields = (e) => {
@@ -31,73 +34,44 @@ class MakeNewTemplates extends Component {
 		this.setState({
 			name: e.target.elements['template-name'].value,
 			description: e.target.elements['template-desc'].value,
+			showgroupform:true,
 			fields: temp
 		});
 	};
 	async componentDidMount () {
 		console.log(firebase.auth().currentUser);
 	}
+	giveDataToParent = (data,index)=>{
+		var temp_fields = this.state.fields;
+		temp_fields[index] = data;
+		this.setState({
+			fields:temp_fields
+		});
+	}
+	onSubmit= ()=>{
 
+	}
 	render () {
-		const renderFields = this.state.fields.map((field) => {
+		const renderFields = this.state.fields.map((field,index) => {
 			return (
-				<div className='row card gray'>
-					<div className='col s2 m3' id=''>
-						<label>Header Name</label>
-						<input name='${&#39;headername-&#39;+id}' required />
-					</div>
-					<div className='col s2 m3' id=''>
-						<label>Choose Data Type</label>
-						<select className='browser-default' name='${&#39;datatype-&#39;+id}'>
-							<option value='1' selected=''>
-								String
-							</option>
-							<option value='2'>Number</option>
-							<option value='3'>Alpha-Numeric</option>
-							<option value='4'>Date</option>
-						</select>
-					</div>
-					<div className='col s2 m3' id=''>
-						<label>Choose Date Format</label>
-						<select
-							className='browser-default'
-							name='${&#39;dateformat-&#39;+id}'
-							onchange='setChange(this)'
-							disabled
-						>
-							<option value='1'>Date : MM/DD/YYYY</option>
-							<option value='2'>Date : DD/MM/YYYY</option>
-							<option value='3'>Date : YYYY/MM/DD</option>
-						</select>
-					</div>
-					<div className='col s2 m1'>
-						<label>Group</label>
-						<input name='${&#39;group-&#39;+id}' required />
-					</div>
-					<div className='input-field col s1 m1'>
-						<label>
-							<input className='filled-in' name='${&#39;required-&#39;+id}' type='checkbox' />
-							<span>Required</span>
-						</label>
-					</div>
-					<div className='col s6 m6'>
-						<label>Regex</label>
-						<input name='${&#39;regex-&#39;+id}' required />
-					</div>
-					<div className='col s6 m6'>
-						<label>Database</label>
-						<input name='${&#39;databasequery-&#39;+id}' required />
-					</div>
-				</div>
+				<TemplateField param_id={index} form_submitted={this.state.form_submitted} giveDataToParent={this.giveDataToParent}/>
 			);
 		});
+		const renderGroupRelation = this.state.showgroupform ? ( <div>
+					<div className="col s12 m12">
+
+							<label htmlFor='group-relations'>Enter group relations:</label>
+							<input id=' input-field group-relations' className="" name='group-relations' />
+
+						</div>
+		</div>):(<div></div> );
 
 		return !firebase.auth().currentUser ? (
 			<div className='container'>
 				<NotLoggedIn />
 			</div>
 		) : (
-			<div className='container' style={{ padding: '3% 10%' }}>
+			<div className='container' >
 				<h5 className='center'>Make A New Temlpate</h5>
 				<div className='row'>
 					<form className='col row s12 m12' onSubmit={this.createFields}>
@@ -123,8 +97,9 @@ class MakeNewTemplates extends Component {
 				</div>
 				<div className='row'>
 					{renderFields}
+					{renderGroupRelation}
 					<div className='col center s12 m12'>
-						<button className='btn black'>Save Template!</button>
+						<button className='btn black' onClick={this.onSubmit}>Save Template!</button>
 					</div>
 				</div>
 			</div>
