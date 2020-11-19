@@ -7,9 +7,11 @@ class TemplateField extends Component {
   state = {
     headerName: "",
     dataType: "",
-    isDateShowing: false,
     required: "",
     group: "",
+    regex: "",
+    databaseQuery:"",
+    isDateShowing: false,
     isDBShowing: false,
     isRegexShowing: false,
     gotData: false,
@@ -28,7 +30,7 @@ class TemplateField extends Component {
     }
   };
 
-  handleRegex = (e) => {
+  handleRegexShow = (e) => {
     e.preventDefault();
     this.setState({
       isRegexShowing: !this.state.isRegexShowing,
@@ -36,7 +38,7 @@ class TemplateField extends Component {
     console.log(this.state.isRegexShowing);
   };
 
-  handleDB = (e) => {
+  handleDBShow = (e) => {
     e.preventDefault();
     this.setState({
       isDBShowing: !this.state.isDBShowing,
@@ -127,13 +129,13 @@ class TemplateField extends Component {
                 <a
                   className="waves-effect  waves-light btn-small black"
                   style={{ marginRight: "10px" }}
-                  onClick={this.handleRegex}
+                  onClick={this.handleRegexShow}
                 >
                   <i className="small  material-icons">add_box</i>
                 </a>
                 <a
                   className="waves-effect waves-light btn-small black"
-                  onClick={this.handleDB}
+                  onClick={this.handleDBShow}
                 >
                   <i className="small material-icons">storage</i>
                 </a>
