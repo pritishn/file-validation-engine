@@ -12,6 +12,7 @@ class TemplateField extends Component {
     group: "",
     isDBShowing: false,
     isRegexShowing: false,
+    gotData: false,
   };
 
   setDatetotrue = (e) => {
@@ -19,6 +20,10 @@ class TemplateField extends Component {
     if (e.target.value === "4") {
       this.setState({
         isDateShowing: !this.state.isDateShowing,
+      });
+    } else {
+      this.setState({
+        isDateShowing: false,
       });
     }
   };
@@ -40,30 +45,47 @@ class TemplateField extends Component {
   };
 
   render() {
-    const displayDateSelector = () => {
-      return this.state.isDateShowing ? (
-        <div className="input-field col s4">
-          <label for="date_form">DateForm</label>
-          <input
-            placeholder=""
-            id="date_form"
-            type="text"
-            className="validate"
-          />
-        </div>
-      ) : (
-        <div className="input-field col s4">
-          <label for="date_form">DateForm</label>
-          <input
-            disabled
-            placeholder=""
-            id="date_form"
-            type="text"
-            className="validate"
-          />
-        </div>
-      );
-    };
+    const displayDateSelector = this.state.isDateShowing ? (
+      <div className="input-field col s4">
+        <select className="browser-default" name="dateFormat">
+          <option value="1">Date : MM/DD/YYYY</option>
+          <option value="2">Date : DD/MM/YYYY</option>
+          <option value="3">Date : YYYY/MM/DD</option>
+        </select>
+      </div>
+    ) : (
+      <div className="input-field col s4">
+        <select disabled className="browser-default" name="dateFormat">
+          <option value="1">Date : MM/DD/YYYY</option>
+          <option value="2">Date : DD/MM/YYYY</option>
+          <option value="3">Date : YYYY/MM/DD</option>
+        </select>
+      </div>
+    );
+
+    const displayRegex = this.state.isRegexShowing ? (
+      <div className="col s12 m12">
+        <label>Regex</label>
+        <input name="regex" required />
+      </div>
+    ) : (
+      <div style={{ display: "none" }} className="col s6 m6">
+        <label>Regex</label>
+        <input name="regex" required />
+      </div>
+    );
+
+    const displayDB = this.state.isDBShowing ? (
+      <div className="col s12 m12">
+        <label>Database</label>
+        <input name="dbName" required />
+      </div>
+    ) : (
+      <div style={{ display: "none" }} className="col s6 m6">
+        <label>Database</label>
+        <input name="dbName" required />
+      </div>
+    );
 
     return (
       <div className="container">
@@ -87,20 +109,31 @@ class TemplateField extends Component {
               <option value="4">Date</option>
             </select>
           </div>
-          <div className="input-field col s4">
-            <select className="browser-default" name="dateFormat">
-              <option value="1">Date : MM/DD/YYYY</option>
-              <option value="2">Date : DD/MM/YYYY</option>
-              <option value="3">Date : YYYY/MM/DD</option>
-            </select>
+
+          {displayDateSelector}
+          <div className="row col s12 m12">
+            <div className="col s6 m6">
+              <label>Group</label>
+              <input name="group" required />
+            </div>
+            <div className="input-field col s6 m6">
+              <label>
+                <input className="filled-in" name="required" type="checkbox" />
+                <span>Required</span>
+              </label>
+            </div>
           </div>
-          <div className="field-icons right">
+
+          <div
+            style={{ paddingBottom: "10px" }}
+            className="field-icons center s12 m12"
+          >
             <a
-              className="waves-effect waves-light btn-small black"
+              className="waves-effect  waves-light btn-small black"
               style={{ marginRight: "10px" }}
               onClick={this.handleRegex}
             >
-              <i className="small material-icons">add_box</i>
+              <i className="small  material-icons">add_box</i>
             </a>
             <a
               className="waves-effect waves-light btn-small black"
@@ -109,17 +142,13 @@ class TemplateField extends Component {
               <i className="small material-icons">storage</i>
             </a>
           </div>
+          {displayRegex}
+
+          {displayDB}
         </div>
-        <div className="row center card-panel">
-          <div className="col s6 m6">
-            <label>Regex</label>
-            <input name="regex" required />
-          </div>
-          <div className="col s6 m6">
-            <label>Database</label>
-            <input name="dbName" required />
-          </div>
-        </div>
+        {/* <div className="row center card-panel">
+          
+        </div> */}
       </div>
     );
   }
