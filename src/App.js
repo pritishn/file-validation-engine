@@ -15,6 +15,7 @@ import {
 import MakeNewTemplates from "./components/MakeNewTemplate";
 import database from "./datastore";
 import TemplateField from "./components/TemplateField";
+import './App.css';
 
 class App extends Component {
   state = {

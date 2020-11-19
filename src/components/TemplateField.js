@@ -46,7 +46,7 @@ class TemplateField extends Component {
 
   render() {
     const displayDateSelector = this.state.isDateShowing ? (
-      <div className="input-field col s4">
+      <div className="input-field col s4 m3">
         <select className="browser-default" name="dateFormat">
           <option value="1">Date : MM/DD/YYYY</option>
           <option value="2">Date : DD/MM/YYYY</option>
@@ -54,7 +54,7 @@ class TemplateField extends Component {
         </select>
       </div>
     ) : (
-      <div className="input-field col s4">
+      <div className="input-field col s4 m3">
         <select disabled className="browser-default" name="dateFormat">
           <option value="1">Date : MM/DD/YYYY</option>
           <option value="2">Date : DD/MM/YYYY</option>
@@ -64,91 +64,85 @@ class TemplateField extends Component {
     );
 
     const displayRegex = this.state.isRegexShowing ? (
-      <div className="col s12 m12">
+      <div className="col s6 m6">
         <label>Regex</label>
         <input name="regex" required />
       </div>
     ) : (
-      <div style={{ display: "none" }} className="col s6 m6">
-        <label>Regex</label>
-        <input name="regex" required />
-      </div>
+      <div></div>
     );
 
     const displayDB = this.state.isDBShowing ? (
-      <div className="col s12 m12">
+      <div className="col s6 m6">
         <label>Database</label>
         <input name="dbName" required />
       </div>
     ) : (
-      <div style={{ display: "none" }} className="col s6 m6">
-        <label>Database</label>
-        <input name="dbName" required />
-      </div>
+      <div></div>
     );
 
     return (
       <div className="container">
-        <div className="row center card-panel">
-          <div className="input-field col s4">
-            <label>Header Name</label>
-            <input
-              placeholder=""
-              id="header_name"
-              type="text"
-              className="validate"
-            />
-          </div>
-          <div className="input-field col s4">
-            <select onChange={this.setDatetotrue} className="browser-default">
-              <option value="1" selected>
-                String
-              </option>
-              <option value="2">Number</option>
-              <option value="3">Alpha-Numeric</option>
-              <option value="4">Date</option>
-            </select>
-          </div>
-
-          {displayDateSelector}
-          <div className="row col s12 m12">
-            <div className="col s6 m6">
-              <label>Group</label>
-              <input name="group" required />
+        <div className="card-panel">
+          <div className="row ">
+            <div className="input-field col s2 m2">
+              <label for="header_name">Header Name</label>
+              <input
+                placeholder=""
+                id="header_name"
+                type="text"
+                className="validate"
+              />
             </div>
-            <div className="input-field col s6 m6">
+            <div className="input-field col s2 m2">
+              <select onChange={this.setDatetotrue} className="browser-default">
+                <option value="1" selected>
+                  String
+                </option>
+                <option value="2">Number</option>
+                <option value="3">Alpha-Numeric</option>
+                <option value="4">Date</option>
+              </select>
+            </div>
+            {displayDateSelector}
+            <div className="input-field col s1 m1">
+              <label for="group_name">Group</label>
+              <input
+                placeholder=""
+                id="group_name"
+                type="text"
+                className="validate"
+              />
+            </div>
+            <div className="input-field col s1 m1">
               <label>
                 <input className="filled-in" name="required" type="checkbox" />
                 <span>Required</span>
               </label>
             </div>
+            <div className="row ">
+              <div
+                className="field-icons right s4 m4 alternate-option"
+              >
+                <a
+                  className="waves-effect  waves-light btn-small black"
+                  style={{ marginRight: "10px" }}
+                  onClick={this.handleRegex}
+                >
+                  <i className="small  material-icons">add_box</i>
+                </a>
+                <a
+                  className="waves-effect waves-light btn-small black"
+                  onClick={this.handleDB}
+                >
+                  <i className="small material-icons">storage</i>
+                </a>
+              </div>
+            </div>
+            {displayRegex}
+            {displayDB}
           </div>
-
-          <div
-            style={{ paddingBottom: "10px" }}
-            className="field-icons center s12 m12"
-          >
-            <a
-              className="waves-effect  waves-light btn-small black"
-              style={{ marginRight: "10px" }}
-              onClick={this.handleRegex}
-            >
-              <i className="small  material-icons">add_box</i>
-            </a>
-            <a
-              className="waves-effect waves-light btn-small black"
-              onClick={this.handleDB}
-            >
-              <i className="small material-icons">storage</i>
-            </a>
-          </div>
-          {displayRegex}
-
-          {displayDB}
         </div>
-        {/* <div className="row center card-panel">
-          
-        </div> */}
       </div>
     );
   }
