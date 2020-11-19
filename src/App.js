@@ -15,11 +15,8 @@ import {
 import MakeNewTemplates from "./components/MakeNewTemplate";
 import database from "./datastore";
 import TemplateField from "./components/TemplateField";
-<<<<<<< HEAD
 import './App.css';
-=======
 import TemplateMinimal from "./components/TemplateMinimal";
->>>>>>> anurag
 
 class App extends Component {
   state = {
