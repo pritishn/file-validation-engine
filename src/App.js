@@ -14,6 +14,7 @@ import {
 } from "./firebase/firebase-intercations";
 import MakeNewTemplates from "./components/MakeNewTemplate";
 import database from "./datastore";
+import TemplateField from "./components/TemplateField";
 
 class App extends Component {
   state = {
@@ -61,6 +62,7 @@ class App extends Component {
               )}
             />
             <Route path="/upload" component={UploadPage} />
+            <Route exact path="/template_field" component={TemplateField} />
             {/* <Route path='/template/:id' component={ShowOneTemplate} /> */}
           </Switch>
         </div>
