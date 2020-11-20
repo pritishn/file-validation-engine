@@ -1,138 +1,140 @@
 import React, { Component } from "react";
+import "../materialize";
+import database from "../datastore";
 
 class TemplateField extends Component {
-  componentDidMount() {
-    // M.AutoInit(); // initializes the select temlpate button!
-  }
   state = {
     headerName: "",
-    dataType: "1",
-    required: "",
-    dateFormat: "",
-    group: "",
-    regex: "",
-    databaseQuery: "",
+    dataType: "String",
+
     isDateShowing: false,
-    isDBShowing: false,
+    dateType: "MM/DD/YYYY",
+    group: "",
+    required: false,
+
     isRegexShowing: false,
-    gotData: false,
-  };
+    regex: "",
 
-  setDateToTrue = (e) => {
-    e.preventDefault();
-    if (e.target.value === "4") {
-      this.setState({
-        isDateShowing: !this.state.isDateShowing,
-      });
-    } else {
-      this.setState({
-        isDateShowing: false,
-      });
-    }
-  };
+    isDBShowing: false,
+    collection: "",
+    databaseQuery: "",
 
-  // DevLog: Pritish
-  //Check all these handle functions. They are apparantly updating state value 1 step late.
-  //Make a console log and check for clarifications.
-  // Also check the required handle function. Its value is either on or null.
-  handleHeaderName = (e) => {
-    e.preventDefault();
-    this.setState({
-      headerName: e.target.value,
-    });
+    collectionList: database.allCollections,
   };
-
-  handleDataType = (e) => {
-    e.preventDefault();
+// ... Data handler functions ...
+  handleDataType = (e) =>
     this.setState({
       dataType: e.target.value,
+      isDateShowing: e.target.value == "Date" ? true : false,
     });
-  };
-
-  handleDateType = (e) => {
-    e.preventDefault();
-    this.setState({
-      dateType: e.target.value,
-    });
-  };
-
-  handleGroup = (e) => {
-    e.preventDefault();
-    this.setState({
-      group: e.target.value,
-    });
-    console.log(this.state.group)
-  };
-
+  handleDateType = (e) => this.setState({ dateType: e.target.value });
+  handleHeaderName = (e) => this.setState({ headerName: e.target.value });
+  handleGroup = (e) => this.setState({ group: e.target.value });
   handleRequired = (e) => {
-    e.preventDefault();
-    this.setState({
-      required: e.target.value,
-    });
-    console.log(this.state.required);
-  };
+    console.log(e.target.checked);
+    e.target.checked = !this.state.required;
+    this.setState({ required: !this.state.required });
+  }
+  handleRegexShow = () =>
+    this.setState({ isRegexShowing: !this.state.isRegexShowing });
 
-  handleRegexShow = (e) => {
-    e.preventDefault();
-    this.setState({
-      isRegexShowing: !this.state.isRegexShowing,
-    });
-    console.log(this.state.isRegexShowing);
-  };
-
-  handleDBShow = (e) => {
-    e.preventDefault();
-    this.setState({
-      isDBShowing: !this.state.isDBShowing,
-    });
-    console.log(this.state.isDBShowing);
-  };
-
+  handleDBShow = () => this.setState({ isDBShowing: !this.state.isDBShowing });
+  handleRegex = (e) => this.setState({ regex: e.target.value });
+  handleCollection = (e) => this.setState({ collection: e.target.value });
+  handleQuery = (e) => this.setState({ databaseQuery: e.target.value });
+// ... Data handler complete ...
+  async componentDidUpdate(prevProps){
+  
+    if((!prevProps.form_submitted) && (this.props.form_submitted) ){
+      let data = {
+        headerName: this.state.headerName,
+        dataType: this.state.dataType,
+        dateType: this.state.dateType,
+        regex: this.state.regex,
+        required: this.state.required,
+        group: this.state.group,
+        collection: this.state.collection,
+        databaseQuery: this.state.databaseQuery
+      }
+      console.log("giving to parent");
+     await this.props.giveDataToParent(data,this.props.param_id);
+    }
+  }
   render() {
+    
+    // ... Conditional Display ...
     const displayDateSelector = this.state.isDateShowing ? (
       <div className="input-field col s4 m3">
-        <select className="browser-default" name="dateFormat">
-          <option value="1">Date : MM/DD/YYYY</option>
-          <option value="2">Date : DD/MM/YYYY</option>
-          <option value="3">Date : YYYY/MM/DD</option>
+        <select
+          className="browser-default"
+          name="dateFormat"
+          onChange={this.handleDateType}
+        >
+          <option value="MM/DD/YYYY">Date : MM/DD/YYYY</option>
+          <option value="DD/MM/YYYY">Date : DD/MM/YYYY</option>
+          <option value="YYYY/MM/DD">Date : YYYY/MM/DD</option>
         </select>
       </div>
     ) : (
       <div className="input-field col s4 m3">
-        <select disabled className="browser-default" name="dateFormat">
-          <option value="1">Date : MM/DD/YYYY</option>
-          <option value="2">Date : DD/MM/YYYY</option>
-          <option value="3">Date : YYYY/MM/DD</option>
+        <select
+          className="browser-default"
+          name="dateFormat"
+          onChange={this.handleDateType}
+          disabled
+        >
+          <option value="MM/DD/YYYY">Date : MM/DD/YYYY</option>
+          <option value="DD/MM/YYYY">Date : DD/MM/YYYY</option>
+          <option value="YYYY/MM/DD">Date : YYYY/MM/DD</option>
         </select>
       </div>
     );
 
     const displayRegex = this.state.isRegexShowing ? (
-      <div className="col s6 m6">
-        <label>Regex</label>
-        <input name="regex" required />
+      <div className="col s12 m12">
+        <input
+          name="regex"
+          placeholder="Regex"
+          required
+          onChange={this.handleRegex}
+        />
       </div>
-    ) : (
-      <div></div>
-    );
+    ) : null;
+    const collectionList = this.state.collectionList.map((collection) => {
+      return <option value={collection.name}>{collection.name}</option>;
+    });
 
     const displayDB = this.state.isDBShowing ? (
-      <div className="col s6 m6">
-        <label>Database</label>
-        <input name="dbName" required />
+      <div className="row input-field col s12 m12">
+        <select
+          className="col browser-default s5 m5"
+          onChange={this.handleCollection}
+        >
+          <option value="1" disabled selected onChange={this.handleCollection}>
+            Database Collection
+          </option>
+          {collectionList}
+        </select>
+
+        {/* <i class="material-icons" onClick={this.showDbHelp} style={{ padding: "10px 10px" }}>help</i> */}
+        <input
+          name="dbQuery"
+          className="col s5 m5 right"
+          placeholder="Query"
+          onChange={this.handleQuery}
+          required
+        />
       </div>
-    ) : (
-      <div></div>
-    );
+    ) : null;
+    // ... Conditional Display Complete...
 
     return (
-      <div className="container col s12 m12">
+      <div className="col s12 m12">
         <div className="card-panel z-depth-2">
-          <div className="row ">
+          <div className="row">
             <div className="input-field col s2 m2">
-              <label for="header_name">Header Name</label>
               <input
-                placeholder=""
+                placeholder="Header Name"
                 id="header_name"
                 type="text"
                 className="validate"
@@ -143,23 +145,21 @@ class TemplateField extends Component {
               <select
                 onChange={(e) => {
                   this.handleDataType(e);
-                  this.setDateToTrue(e);
                 }}
                 className="browser-default"
               >
-                <option value="1" defaultValue>
+                <option value="String" defaultValue>
                   String
                 </option>
-                <option value="2">Number</option>
-                <option value="3">Alpha-Numeric</option>
-                <option value="4">Date</option>
+                <option value="Number">Number</option>
+                <option value="Alpha-Numeric">Alpha-Numeric</option>
+                <option value="Date">Date</option>
               </select>
             </div>
             {displayDateSelector}
             <div className="input-field col s1 m1">
-              <label for="group_name">Group</label>
               <input
-                placeholder=""
+                placeholder="Group"
                 id="group_name"
                 type="text"
                 className="validate"
@@ -168,21 +168,27 @@ class TemplateField extends Component {
             </div>
             <div className="input-field col s1 m1">
               <label>
-                <input onChange={this.handleRequired} className="filled-in" name="required" type="checkbox" />
+                <input
+                  onChange={this.handleRequired}
+                  className="filled-in"
+                  name="required"
+                  type="checkbox"
+                  checked={this.state.required}
+                />
                 <span>Required</span>
               </label>
             </div>
             <div className="row ">
               <div className="field-icons right s4 m4 alternate-option">
                 <a
-                  className="waves-effect  waves-light btn-small black"
+                  className="waves-effect  waves-light btn-small cyan darken-4"
                   style={{ marginRight: "10px" }}
                   onClick={this.handleRegexShow}
                 >
                   <i className="small  material-icons">add_box</i>
                 </a>
                 <a
-                  className="waves-effect waves-light btn-small black"
+                  className="waves-effect waves-light btn-small blue darken-4"
                   onClick={this.handleDBShow}
                 >
                   <i className="small material-icons">storage</i>

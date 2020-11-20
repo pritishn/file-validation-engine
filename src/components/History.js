@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class history extends Component{
+class History extends Component{
     componentDidMount() {}
     state = {
         date: "20/11/2020" ,
@@ -39,4 +39,4 @@ class history extends Component{
     }
 }
 
-export default history;
+export default History;

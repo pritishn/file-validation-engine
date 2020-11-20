@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-export default class TemplateMinimal extends Component {
+export default class TemplateCard extends Component {
   state = {
     templateName: "Template 1",
     templateDescription:
@@ -12,7 +12,7 @@ export default class TemplateMinimal extends Component {
 
   render() {
     return (
-      <div className="container" style={{ paddingTop: "10px" }}>
+      <div style={{ paddingTop: "10px" }}>
         <div class="center col s12 m12">
           <div class="card hoverable small z-depth-2" style={{ borderRadius: "10px" }}>
             <div class="card-content">

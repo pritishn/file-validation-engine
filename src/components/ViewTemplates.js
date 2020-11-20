@@ -3,7 +3,7 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import database from "../datastore";
 import addicon from '../add.svg';
 import ReactDOM from 'react-dom';
-import TemplateMinimal from './TemplateMinimal';
+import TemplateCard from './TemplateCard';
 
 class ViewTemplates extends Component {
     render() {
@@ -22,7 +22,7 @@ class ViewTemplates extends Component {
                         <a href="" className="white-text">View This Template</a>
                         </div>
                     </div> */}
-                    <TemplateMinimal class="center col s4 m4"/>
+                    <TemplateCard class="center col s4 m4"/>
                 </div>
         ) 
        })
