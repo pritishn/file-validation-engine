@@ -2,7 +2,12 @@ import React, { Component } from "react";
 
 class history extends Component{
     componentDidMount() {}
-
+    state = {
+        date: "20/11/2020" ,
+        file: "filename.csv",
+        template:  "templateName",
+        status: "Pass/Fail",
+    };
     render(){
 
         return(
@@ -21,10 +26,10 @@ class history extends Component{
 
                         <tbody>
                         <tr>
-                            <td>10/10/10</td>
-                            <td>csv</td>
-                            <td>Topi is OP</td>
-                            <td>Passed</td>
+                            <td>{this.state.date}</td>
+                            <td>{this.state.file}</td>
+                            <td>{this.state.template}</td>
+                            <td>{this.state.status}</td>
                         </tr>
                         </tbody>
                     </table>

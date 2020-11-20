@@ -12,7 +12,7 @@ export default class TemplateMinimal extends Component {
 
   render() {
     return (
-      <div className="" style={{ paddingTop: "10px" }}>
+      <div className="container" style={{ paddingTop: "10px" }}>
         <div class="center col s12 m12">
           <div class="card hoverable small z-depth-2" style={{ borderRadius: "10px" }}>
             <div class="card-content">
