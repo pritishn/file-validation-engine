@@ -19,7 +19,7 @@ import './App.css';
 import TemplateCard from "./components/TemplateCard";
 import history from "./components/History";
 import showTemplate from "./components/ShowTemplate";
-
+import ErrorLog from "./components/ErrorLog";
 
 class App extends Component {
   state = {
@@ -71,6 +71,7 @@ class App extends Component {
             <Route exact path="/template_card" component={TemplateCard} />
             <Route exact path="/history" component={history} />
             <Route exact path="/template/:id" component={showTemplate} />
+            <Route exact path="/error" component={ErrorLog} />
             {/* <Route path='/template/:id' component={ShowOneTemplate} /> */}
           </Switch>
         </div>
