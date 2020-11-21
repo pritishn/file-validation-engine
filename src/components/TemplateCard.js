@@ -22,15 +22,14 @@ export default class TemplateCard extends Component {
               <h5>{this.state.templateName}</h5>
               <p className="truncate">{this.state.templateDescription}</p>
               <div className="card-content">
-                <p className="grey-text">Hello {this.state.ownerName}</p>
-                <p className="grey-text">{this.state.dateCreated}</p>
+                <p className="grey-text">{this.state.ownerName}</p>
               </div>
             </div>
             <div
               class="card-action indigo darken-4"
               style={{ borderRadius: "0px 0px 10px 10px",fontSize:"0.8em" }}
             >
-              <Link to={"/template/"+this.state.templateID} className="white-text right">
+              <Link to={"/template/"+this.state.templateID} className="white-text center">
                   <b>View This Template</b>
               </Link>
             </div>

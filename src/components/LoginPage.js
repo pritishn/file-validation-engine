@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import database from '../datastore';
 import { loginWithGooglePopup } from '../firebase/firebase-intercations';
 import dell from "../imgs/dell.jpg";
+import KommunicateChat from "../chatbot" ; 
 
 class LoginPage extends Component {
 	state = {
@@ -41,6 +42,7 @@ class LoginPage extends Component {
 	}
 	render () {
 		return this.state.username !== '' ? (
+			
 			<div className='container' style={{ marginTop: '5%' }}>
 				<div class='card hoverable z-depth-2' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
@@ -52,6 +54,7 @@ class LoginPage extends Component {
 							className='card-action  indigo darken-4 center'
 							style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 						>
+											
 							<Link to='/view_templates' className='white-text '>
 								<b>View all Templates</b>
 							</Link>
@@ -62,6 +65,8 @@ class LoginPage extends Component {
 					</div>
 				</div>
 				<History/>
+				<KommunicateChat/>
+
 			</div>
 		) : (
 			<div className='container' style={{ marginTop: '5%' }}>

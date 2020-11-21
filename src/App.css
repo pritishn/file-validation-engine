@@ -28,3 +28,21 @@ label{
 input {
   text-align: center;
 }
+/*------------------------------------Footer----------------------------------*/
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #007CB6;
+  color: white;
+  text-align: center;
+}
+
+.footer-icon {
+  color: red;
+}
+
+.footer-text{
+  font-size: large;
+}

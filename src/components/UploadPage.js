@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import ReactDOM from "react-dom";
 import database from "../datastore";
 import { getAllTemplates } from "../firebase/firebase-intercations";
+import ErrorLog from "./ErrorLog";
 
 class UploadPage extends Component {
   state = {
@@ -74,6 +75,8 @@ class UploadPage extends Component {
             </div>
           </div>
         </form>
+        <div className="center"> <ErrorLog className></ErrorLog></div>
+       
       </div>
     );
   }
