@@ -122,7 +122,7 @@ class ShowTemplateField extends Component {
                 className="validate"
                 defaultValue={this.state.group}
               />
-              <label htmlFor="group_name">Group</label>
+              <label className="active" htmlFor="group_name">Group</label>
             </div>
             <div className="input-field col s1 m1">
               <label>
