@@ -26,22 +26,23 @@ class LoginPage extends Component {
 		});
 		database.loggedIn = false;
 	};
-	async componentDidMount () {
-		var user = await firebase.auth().currentUser;
-		if (user) {
-			this.setState({
-				username: user.displayName
-			});
-		} else {
-			this.setState({
-				username: ''
-			});
-		}
+	componentDidMount () {
+		firebase.auth().onAuthStateChanged((user) =>{
+			if (user) {
+				this.setState({
+					username: user.displayName
+				})
+			} else {
+				this.setState({
+					username: ''
+				})
+			}
+		  });
 	}
 	render () {
 		return this.state.username !== '' ? (
 			<div className='container' style={{ marginTop: '5%' }}>
-				<div class='card  z-depth-3' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
+				<div class='card hoverable z-depth-2' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
 						<img src={dell} style={{ width: '130px' , paddingTop:'20px'}} />
 						<p style={{ fontSize: '1.4em', paddingBottom: '20px', fontWeight: '600' }}>
@@ -64,7 +65,7 @@ class LoginPage extends Component {
 			</div>
 		) : (
 			<div className='container' style={{ marginTop: '5%' }}>
-				<div class='card z-depth-2	' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
+				<div class='card hoverable z-depth-2' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
 						<img src={dell} style={{ width: '100px' ,paddingTop:'20px' }} />
 						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
@@ -73,10 +74,10 @@ class LoginPage extends Component {
 
 						<Link onClick={this.loginUser} className='white-text'>
 							<div
-								className='card-action center   indigo darken-4'
+								className='card-action center indigo darken-4'
 								style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 							>
-								<b>Login</b>
+								<b>Click Here To Login</b>
 							</div>
 						</Link>
 					</div>

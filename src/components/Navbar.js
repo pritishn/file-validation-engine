@@ -26,7 +26,10 @@ class Navbar extends Component {
                 <Link to="/view_templates">View Templates</Link>
               </li>
               <li class="tab">
-                <Link to="/upload">Upload Page </Link>
+                <Link to="/upload">Upload File</Link>
+              </li>
+              <li class="tab">
+                <Link to="/upload">Numeric File</Link>
               </li>
             </ul>
           </div>
