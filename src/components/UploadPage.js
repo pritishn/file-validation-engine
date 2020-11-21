@@ -4,10 +4,12 @@ import ReactDOM from "react-dom";
 import database from "../datastore";
 import { getAllTemplates } from "../firebase/firebase-intercations";
 import ErrorLog from "./ErrorLog";
+import TemplateCard from "./TemplateCard";
 
 class UploadPage extends Component {
   state = {
     selectedTemplate: null,
+    hasError: false,
     templates: [],
   };
   async componentDidMount() {
@@ -17,10 +19,14 @@ class UploadPage extends Component {
     });
     console.log(this.state.templates);
   }
-  changeSelected = (e) => {
+  changeSelected = async (e) => {
     var idx = e.target.selectedIndex - 1;
+    if(idx==-1) return;
     var template = this.state.templates[idx];
-    this.setState({
+    await this.setState({
+      selectedTemplate: null,
+    });
+    await this.setState({
       selectedTemplate: template,
     });
   };
@@ -28,32 +34,17 @@ class UploadPage extends Component {
     const templateOption = this.state.templates.map((template) => {
       return <option value={template.templateID}>{template.name}</option>;
     });
-    const selectedTemplate = (template) => {
-      return this.state.selectedTemplate != null ? (
-        <div>
-          <div class="center col s12 m12 ">
-            <div class="card small z-depth-1">
-              <div class="card-content">
-                <span class="card-title">
-                  {this.state.selectedTemplate.name}
-                </span>
-                <p>{this.state.selectedTemplate.description}</p>
-              </div>
-              <div class="card-action black">
-                <Link
-                  to={"/templates/" + this.state.selectedTemplate.templateID}
-                />
-                <a href="" className="white-text">
-                  View This Template
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+    const selectedTemplate = () => this.state.selectedTemplate != null ? (
+        <TemplateCard template_data={this.state.selectedTemplate}/>
       ) : (
-        <p />
+        null
       );
-    };
+    const showError = ()=> this.state.hasError != null ? (
+      <div className="center"> <ErrorLog className></ErrorLog></div>
+      ) : (
+        null
+      );
+  
     return (
       <div className="container row" style={{ marginTop: "5%" }}>
         <form style={{ padding: "0 10%" }}>
@@ -66,7 +57,7 @@ class UploadPage extends Component {
               {templateOption}
             </select>
           </div>
-          <div>{selectedTemplate()}</div>
+          {selectedTemplate()}
           <div className="file-field col s12 m12 center">
             <input className="center" type="file" />
             <button className=" btn center blue darken-4">Select File</button>
@@ -75,7 +66,6 @@ class UploadPage extends Component {
             </div>
           </div>
         </form>
-        <div className="center"> <ErrorLog className></ErrorLog></div>
        
       </div>
     );

@@ -32,7 +32,6 @@ class ShowTemplateField extends Component {
   }
 
   render() {
-    // ... Conditional Display ...
     const displayDateSelector = this.state.isDateShowing ? (
       <div className="input-field col s4 m3">
         <input
@@ -44,16 +43,7 @@ class ShowTemplateField extends Component {
         <label htmlFor="dateFormat">Date</label>
       </div>
     ) : (
-      <div className="input-field col s4 m3">
-        <input
-          className="validate"
-          name="dateFormat"
-          id="dateFormat"
-          defaultValue={this.state.dateType}
-          disabled
-        />
-         <label htmlFor="dateFormat">Date</label>
-      </div>
+      null
     );
 
     const displayRegex = (
@@ -107,16 +97,16 @@ class ShowTemplateField extends Component {
                 placeholder="Header Name"
                 id="header_name"
                 type="text"
-                className="validate"
+                className="validate active"
                 defaultValue={this.state.headerName}
               />
-              <label htmlFor="header_name">Name</label>
+              <label htmlFor="header_name" class="active">Name</label>
             </div>
             <div className="input-field col s2 m2">
               <input
                 defaultValue={this.state.dataType}
                 placeholder="Data Type"
-                className="validate"
+                className="validate active"
                 name ="dataType"
                 id ="dataType"
               />
