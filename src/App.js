@@ -2,16 +2,13 @@ import Navbar from "./components/Navbar";
 import UploadPage from "./components/UploadPage";
 import LoginPage from "./components/LoginPage";
 import ViewTemplates from "./components/ViewTemplates";
-import firebase from "./firebase/firebase-init";
 import "./firebase/firebase-intercations";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { render } from "@testing-library/react";
 import { Component } from "react";
 import {
   getAllTemplates,
-  getHistory,
-  loginWithGooglePopup,
-  saveTemplateToDB,getCollectionList,
+  getCollectionList,
 } from "./firebase/firebase-intercations";
 import MakeNewTemplates from "./components/MakeNewTemplate";
 import database from "./datastore";
@@ -32,7 +29,7 @@ class App extends Component {
 
   async componentDidMount() {
     database.templates = await getAllTemplates();
-    
+
     database.collections = await getCollectionList();
   }
 
@@ -46,7 +43,7 @@ class App extends Component {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/view_templates" component={ViewTemplates} />
             <Route exact path="/make_template" component={MakeNewTemplates} />
-            <Route path="/upload" component={UploadPage} />
+            <Route exact path="/upload" component={UploadPage} />
             <Route exact path="/template_field" component={TemplateField} />
             <Route exact path="/template_card" component={TemplateCard} />
             <Route exact path="/history" component={History} />

@@ -29,7 +29,7 @@ export default class TemplateCard extends Component {
               class="card-action indigo darken-4"
               style={{ borderRadius: "0px 0px 10px 10px",fontSize:"0.8em" }}
             >
-              <Link to={"/template/"+this.state.templateID} className="white-text right">
+              <Link to={"/template/"+this.state.templateID} className="white-text center">
                   <b>View This Template</b>
               </Link>
             </div>
