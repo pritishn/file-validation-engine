@@ -24,3 +24,7 @@ label{
   color: #007CB6;
   font-weight: 500;
 }
+
+input {
+  text-align: center;
+}
