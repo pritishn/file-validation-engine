@@ -6,6 +6,7 @@ import '../firebase/firebase-intercations';
 import ReactDOM from 'react-dom';
 import database from '../datastore';
 import { loginWithGooglePopup } from '../firebase/firebase-intercations';
+import dell from "../imgs/dell.jpg";
 
 class LoginPage extends Component {
 	state = {
@@ -42,8 +43,8 @@ class LoginPage extends Component {
 			<div className='container' style={{ marginTop: '5%' }}>
 				<div class='card  z-depth-3' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
-						<img src={''} style={{ width: '100px' }} />
-						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
+						<img src={dell} style={{ width: '130px' , paddingTop:'20px'}} />
+						<p style={{ fontSize: '1.4em', paddingBottom: '20px', fontWeight: '600' }}>
 							Hello {this.state.username}! You are logged in!
 						</p>
 						<div
@@ -65,7 +66,7 @@ class LoginPage extends Component {
 			<div className='container' style={{ marginTop: '5%' }}>
 				<div class='card z-depth-2	' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
-						<img src={''} style={{ width: '100px' }} />
+						<img src={dell} style={{ width: '100px' ,paddingTop:'20px' }} />
 						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
 							Welcome! Please Login to use the app!
 						</p>
