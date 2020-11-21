@@ -9,7 +9,7 @@ const Footer = () => {
 						style={{ letterSpacing: '0.5px' }}
 						className='footer-text'
 					>
-					Made with  <i class="material-icons footer-icon">favorite</i> from SudoCoders
+					Made with ❤️ by SudoCoders
 					</p>
 				</div>
 			</footer>
