@@ -59,6 +59,7 @@ class MakeNewTemplates extends Component {
     };
     await saveTemplateToDB(final_template);
     alert("Template Saved to DB!");
+    
   };
   handleGroupRelation = (e) => {
     this.setState({

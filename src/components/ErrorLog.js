@@ -27,21 +27,21 @@ export default class ErrorLog extends Component {
 
   render() {
     return (
-      <div className="row container center">
-        <div className="col s12 m6">
-          <div className="card dell-blue z-depth-2 ">
+      <div className="row center">
+        <div className="col s12 m12">
+          <div className="card hoverable dell-blue z-depth-2 ">
             <div className="card-content white-text">
               <span className="card-title white-text">
                 Error Code: {this.state.errCode}
               </span>
-              <div className="card card-content hoverable z-depth-2 ">
+              <div className="card card-content z-depth-1 ">
                 <span className="dell-blue-text">{this.state.errMessage}</span>
               </div>
             </div>
             <div className="card-action ">
               <button
                 onClick={this.handleClick}
-                className="btn white dell-blue-text"
+                className="btn white dell-blue-text z-depth-1"
               >
                 Download Log
               </button>
