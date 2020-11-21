@@ -20,7 +20,8 @@ import TemplateCard from "./components/TemplateCard";
 import History from "./components/History";
 import ShowTemplate from "./components/ShowTemplate";
 import ShowTemplateField from "./components/ShowTemplateField";
-
+import showTemplate from "./components/ShowTemplate";
+import ErrorLog from "./components/ErrorLog";
 
 class App extends Component {
   state = {
@@ -73,6 +74,8 @@ class App extends Component {
             <Route exact path="/history" component={History} />
             <Route exact path="/show" component={ShowTemplate} />
             <Route exact path="/single" component={ShowTemplateField} />
+            <Route exact path="/template/:id" component={showTemplate} />
+            <Route exact path="/error" component={ErrorLog} />
             {/* <Route path='/template/:id' component={ShowOneTemplate} /> */}
           </Switch>
         </div>
