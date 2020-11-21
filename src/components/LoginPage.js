@@ -46,7 +46,7 @@ class LoginPage extends Component {
 							Hello {this.state.username}! You are logged in!
 						</p>
 						<div
-							className='card-action black center'
+							className='card-action  indigo darken-4 center'
 							style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 						>
 							<Link to='/view_templates' className='white-text '>
@@ -70,7 +70,7 @@ class LoginPage extends Component {
 
 						<Link onClick={this.loginUser} className='white-text'>
 							<div
-								className='card-action center  black'
+								className='card-action center   indigo darken-4'
 								style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 							>
 								<b>Login</b>
