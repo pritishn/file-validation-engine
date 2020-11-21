@@ -25,26 +25,28 @@ class LoginPage extends Component {
 		});
 		database.loggedIn = false;
 	};
-	async componentDidMount () {
-		var user = await firebase.auth().currentUser;
-		if (user) {
-			this.setState({
-				username: user.displayName
-			});
-		} else {
-			this.setState({
-				username: ''
-			});
-		}
+	componentDidMount () {
+		firebase.auth().onAuthStateChanged((user) =>{
+			if (user) {
+				this.setState({
+					username: user.displayName
+				})
+			} else {
+				this.setState({
+					username: ''
+				})
+			}
+		  });
 	}
 	render () {
 		return this.state.username !== '' ? (
 			<div className='container' style={{ marginTop: '5%' }}>
-				<div class='card  z-depth-3' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
+				<div class='card hoverable z-depth-2' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
 						<img src={''} style={{ width: '100px' }} />
-						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
-							Hello {this.state.username}! You are logged in!
+						<p style={{ fontSize: '1.4em', padding: '20px' }}>
+							Hello {this.state.username}, <br></br>
+							You are now <b>Logged in</b>!
 						</p>
 						<div
 							className='card-action  indigo darken-4 center'
@@ -63,19 +65,19 @@ class LoginPage extends Component {
 			</div>
 		) : (
 			<div className='container' style={{ marginTop: '5%' }}>
-				<div class='card z-depth-2	' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
+				<div class='card hoverable z-depth-2' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
 						<img src={''} style={{ width: '100px' }} />
-						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
-							Welcome! Please Login to use the app!
+						<p style={{ fontSize: '1.4em', padding: '20px' }}>
+							Welcome! Please <b>Login</b> to use the app!
 						</p>
 
 						<Link onClick={this.loginUser} className='white-text'>
 							<div
-								className='card-action center   indigo darken-4'
+								className='card-action center indigo darken-4'
 								style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 							>
-								<b>Login</b>
+								<b>Click Here To Login</b>
 							</div>
 						</Link>
 					</div>

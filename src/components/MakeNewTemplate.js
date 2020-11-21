@@ -26,8 +26,8 @@ class MakeNewTemplates extends Component {
       dateType: "",
       regex: "",
       required: "",
-	  group: "",
-	  collection:"",
+      group: "",
+      collection: "",
       databaseQuery: "",
     };
     var numberOfFields = Number(e.target.elements["number-of-fields"].value);
@@ -40,33 +40,31 @@ class MakeNewTemplates extends Component {
       fields: temp,
     });
   };
-  componentDidMount() {
-  }
+  componentDidMount() {}
   giveDataToParent = (data, index) => {
-	  
     let temp_fields = this.state.fields;
-	temp_fields[index] = data;
-	console.log("recieved data",temp_fields,this.state.fields);
+    temp_fields[index] = data;
+    console.log("recieved data", temp_fields, this.state.fields);
     this.setState({
       fields: temp_fields,
     });
   };
-  onSubmit =async () => {
-	  await this.setState({form_submitted:true});
-	  var final_template = {
-		  name:this.state.name,
-		  description:this.state.description,
-		  fields:this.state.fields,
-		  groupRelations:this.state.groupRelations
-	  }
-	  await saveTemplateToDB(final_template);
-	  alert("Template Saved to DB!")
+  onSubmit = async () => {
+    await this.setState({ form_submitted: true });
+    var final_template = {
+      name: this.state.name,
+      description: this.state.description,
+      fields: this.state.fields,
+      groupRelations: this.state.groupRelations,
+    };
+    await saveTemplateToDB(final_template);
+    alert("Template Saved to DB!");
   };
-  handleGroupRelation = (e)=>{
-	this.setState({
-		groupRelations:e.target.value
-	});
-  }
+  handleGroupRelation = (e) => {
+    this.setState({
+      groupRelations: e.target.value,
+    });
+  };
   render() {
     const renderFields = this.state.fields.map((field, index) => {
       return (
@@ -78,14 +76,14 @@ class MakeNewTemplates extends Component {
       );
     });
     const renderGroupRelation = this.state.showgroupform ? (
-      <div>
-        <div className="col s12 m12">
-          <label htmlFor="group-relations">Enter group relations:</label>
+      <div className="container col s12 m12">
+        <div className="card-panel">
           <input
             id=" input-field group-relations"
             className=""
-			name="group-relations"
-			onChange={this.handleGroupRelation}
+            placeholder="Enter Group Relations"
+            name="group-relations"
+            onChange={this.handleGroupRelation}
           />
         </div>
       </div>

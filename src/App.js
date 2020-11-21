@@ -70,7 +70,7 @@ class App extends Component {
             <Route exact path="/template_field" component={TemplateField} />
             <Route exact path="/template_card" component={TemplateCard} />
             <Route exact path="/history" component={history} />
-            <Route exact path="/show_template" component={showTemplate} />
+            <Route exact path="/template/:id" component={showTemplate} />
             {/* <Route path='/template/:id' component={ShowOneTemplate} /> */}
           </Switch>
         </div>
