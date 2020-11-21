@@ -24,3 +24,22 @@ label{
   color: #007CB6;
   font-weight: 500;
 }
+
+/*------------------------------------Footer----------------------------------*/
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #007CB6;
+  color: white;
+  text-align: center;
+}
+
+.footer-icon {
+  color: red;
+}
+
+.footer-text{
+  font-size: large;
+}

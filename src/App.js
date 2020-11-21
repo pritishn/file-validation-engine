@@ -23,6 +23,7 @@ import ShowTemplate from "./components/ShowTemplate";
 import ShowTemplateField from "./components/ShowTemplateField";
 import showTemplate from "./components/ShowTemplate";
 import ErrorLog from "./components/ErrorLog";
+import Footer from "./components/Footer";
 
 class App extends Component {
   state = {
@@ -55,6 +56,7 @@ class App extends Component {
             <Route exact path="/template/:id" component={showTemplate} />
             <Route exact path="/error" component={ErrorLog} />
           </Switch>
+          <Footer />
         </div>
       </BrowserRouter>
     );
