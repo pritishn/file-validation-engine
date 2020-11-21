@@ -7,7 +7,7 @@ class Navbar extends Component {
     //make navbar here
     return (
       <div className="Navbar">
-            <nav class="nav-extended  deep-purple darken-4 z-depth-2" style={{marginBottom:"10px"}}>
+            <nav class="nav-extended  dell-blue z-depth-2" style={{marginBottom:"10px"}}>
           <div class="nav-wrapper">
             <a href="#" class="brand-logo center">
                 File Validation Engine
