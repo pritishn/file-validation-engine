@@ -93,13 +93,23 @@ export async function getHistory() {
 
 export async function getCollectionList() {
   //saves template json to db
+  var ret = [],
+  error = null;
   await db
     .collection("Collection-List")
     .get()
-    .then((res) => {
-      return res;
+    .then((docs) => {
+      docs.forEach((doc) => {
+        var _doc = doc.data();
+        ret.push(_doc);
+      });
     })
     .catch((err) => {
-      return Promise.reject(err);
+      error = err;
     });
+    if (error == null) {
+      return ret;
+    } else {
+      return error;
+    }
 }

@@ -19,7 +19,7 @@ class TemplateField extends Component {
     collection: "",
     databaseQuery: "",
 
-    collectionList: database.allCollections,
+    collectionList: database.collections,
   };
 // ... Data handler functions ...
   handleDataType = (e) =>

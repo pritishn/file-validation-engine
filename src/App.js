@@ -30,8 +30,8 @@ class App extends Component {
 
   async componentDidMount() {
     database.templates = await getAllTemplates();
-
     database.collections = await getCollectionList();
+    console.log(database.collections);
   }
 
   render() {
