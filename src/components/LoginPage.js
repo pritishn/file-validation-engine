@@ -67,7 +67,7 @@ class LoginPage extends Component {
 			<div className='container' style={{ marginTop: '5%' }}>
 				<div class='card hoverable z-depth-2' style={{ width: '60%', margin: '10% 20%', borderRadius: '8px' }}>
 					<div className='center'>
-						<img src={dell} style={{ width: '100px' ,paddingTop:'20px' }} />
+						<img src={dell} style={{ width: '130px' ,paddingTop:'20px' }} />
 						<p style={{ fontSize: '1.4em', padding: '20px', fontWeight: '600' }}>
 							Welcome! Please Login to use the app!
 						</p>
