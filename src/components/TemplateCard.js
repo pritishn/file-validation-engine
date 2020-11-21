@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 export default class TemplateCard extends Component {
   state = {
     templateName: "Template 1",
@@ -33,7 +34,7 @@ export default class TemplateCard extends Component {
               class="card-action  indigo darken-4"
               style={{ borderRadius: "0px 0px 10px 10px" }}
             >
-              <Link to={"/"} className="white-text">
+              <Link to={"/show_template"} className="white-text">
                 View This Template
               </Link>
             </div>

@@ -17,7 +17,8 @@ import database from "./datastore";
 import TemplateField from "./components/TemplateField";
 import './App.css';
 import TemplateCard from "./components/TemplateCard";
-import History from "./components/History";
+import history from "./components/History";
+import showTemplate from "./components/ShowTemplate";
 
 
 class App extends Component {
@@ -69,6 +70,7 @@ class App extends Component {
             <Route exact path="/template_field" component={TemplateField} />
             <Route exact path="/template_card" component={TemplateCard} />
             <Route exact path="/history" component={history} />
+            <Route exact path="/show_template" component={showTemplate} />
             {/* <Route path='/template/:id' component={ShowOneTemplate} /> */}
           </Switch>
         </div>
