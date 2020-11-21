@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../materialize";
+import "@material-ui/core";
 import database from "../datastore";
 
 class TemplateField extends Component {
@@ -25,7 +25,7 @@ class TemplateField extends Component {
   handleDataType = (e) =>
     this.setState({
       dataType: e.target.value,
-      isDateShowing: e.target.value == "Date" ? true : false,
+      isDateShowing: e.target.value === "Date" ? true : false,
     });
   handleDateType = (e) => this.setState({ dateType: e.target.value });
   handleHeaderName = (e) => this.setState({ headerName: e.target.value });
@@ -183,7 +183,7 @@ class TemplateField extends Component {
                 <a
                   className="waves-effect  waves-light btn-small cyan darken-4"
                   style={{ marginRight: "10px" }}
-                  onClick={this.handleRegexShow}
+                  onClick={this.handleRegexShow} 
                 >
                   <i className="small  material-icons">add_box</i>
                 </a>
