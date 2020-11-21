@@ -48,7 +48,7 @@ class UploadPage extends Component {
         this.setState({testCheckerComplete:true});
       }
       await this.setState({rowBeingChecked:this.state.rowBeingChecked+1});
-      let error = " ";// await validateRow(row);
+      let error = await validateRow(row.data,row.errors,this.selectedTemplate);
       this.errors.push(error);
     }
   };
@@ -107,7 +107,6 @@ class UploadPage extends Component {
               <CSVReader
                 onDrop={null}
                 onError={null}
-      
                 config={this.state.testCheckerMode?this.testChecker:this.fullChecker}
                 addRemoveButton
                 removeButtonColor="#659cef"
