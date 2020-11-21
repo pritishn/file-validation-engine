@@ -68,7 +68,7 @@ class UploadPage extends Component {
           <div>{selectedTemplate()}</div>
           <div className="file-field col s12 m12 center">
             <input className="center" type="file" />
-            <button className=" btn center black">Select File</button>
+            <button className=" btn center blue darken-4">Select File</button>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text" />
             </div>
