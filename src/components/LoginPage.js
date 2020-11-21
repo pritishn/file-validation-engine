@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../firebase/firebase-init';
+import History from './History'
 import '../firebase/firebase-intercations';
 import ReactDOM from 'react-dom';
 import database from '../datastore';
@@ -58,6 +59,7 @@ class LoginPage extends Component {
 						</div>
 					</div>
 				</div>
+				<History/>
 			</div>
 		) : (
 			<div className='container' style={{ marginTop: '5%' }}>
