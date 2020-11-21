@@ -12,16 +12,6 @@ class ViewTemplates extends Component {
     const temps = templates.map((temp) => {
       return (
         <div class="center col s4 m4">
-          {/* <div class="card small  z-depth-3 ">
-                        <div class="card-content">
-                        <span class="card-title">{temp.name}</span>
-                            <p>{temp.description}</p>
-                        </div>
-                        <div class="card-action black">
-                            <Link to={'/templates/'+temp.templateID} ></Link>
-                        <a href="" className="white-text">View This Template</a>
-                        </div>
-                    </div> */}
           <TemplateCard class="center col s4 m4" template_data={temp}/>
         </div>
       );

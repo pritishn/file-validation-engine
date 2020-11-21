@@ -22,8 +22,7 @@ export default class TemplateCard extends Component {
               <h5>{this.state.templateName}</h5>
               <p className="truncate">{this.state.templateDescription}</p>
               <div className="card-content">
-                <p className="grey-text">Hello {this.state.ownerName}</p>
-                <p className="grey-text">{this.state.dateCreated}</p>
+                <p className="grey-text">{this.state.ownerName}</p>
               </div>
             </div>
             <div

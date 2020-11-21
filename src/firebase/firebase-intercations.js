@@ -68,17 +68,27 @@ export async function getUserTemplates(uid) {
   }
 }
 
-export async function getHistory(data) {
+export async function getHistory() {
   //saves template json to db
+  var ret = [],
+  error = null;
   await db
     .collection("History")
-    .add(data)
-    .then((res) => {
-      return res;
+    .get()
+    .then((docs) => {
+      docs.forEach((doc) => {
+        var _doc = doc.data();
+        ret.push(_doc);
+      });
     })
     .catch((err) => {
-      return Promise.reject(err);
+      error = err;
     });
+    if (error == null) {
+      return ret;
+    } else {
+      return error;
+    }
 }
 
 export async function getCollectionList() {

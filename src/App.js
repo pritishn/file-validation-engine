@@ -11,7 +11,7 @@ import {
   getAllTemplates,
   getHistory,
   loginWithGooglePopup,
-  saveTemplateToDB,
+  saveTemplateToDB,getCollectionList,
 } from "./firebase/firebase-intercations";
 import MakeNewTemplates from "./components/MakeNewTemplate";
 import database from "./datastore";
@@ -32,8 +32,8 @@ class App extends Component {
 
   async componentDidMount() {
     database.templates = await getAllTemplates();
-    database.history = await getHistory();
-    database.collections = await getCollections();
+    
+    database.collections = await getCollectionList();
   }
 
   render() {

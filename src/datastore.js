@@ -1,7 +1,8 @@
 let database = {
     collections:[{name:"He"},{name:"Ho"}],
     templates:[],
-    history:[]
+    history:[],
+    historyLoaded:false
 };
 
 //schema of history 

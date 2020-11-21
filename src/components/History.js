@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import database from "../datastore";
+import { getHistory } from "../firebase/firebase-intercations";
+import { CircularProgress } from "@material-ui/core";
 
 class History extends Component {
   state = {
     history: [],
+    historyLoaded:false,
   };
- componentDidMount() {
+ async componentDidMount() {
+    if(!database.historyLoaded){
+      database.history = await getHistory();
+    }
     this.setState({
       history: database.history,
+      historyLoaded:true
     });
   }
   render() {
@@ -20,14 +27,18 @@ class History extends Component {
           <td style={{ color: data.status == "Successful" ? "green" : "red" }}>
             {data.status}
           </td>
-          <td>{data.errorLogLink}</td>
+          {/* <td>{data.fileStoreLink}</td> */}
         </tr>
       ) : null;
     });
+    
     return (
       <div className="container">
-        <div className="card-panel " style={{ borderRadius: "10px" }}    >
-          <h4 className="center">Upload History</h4>
+        <div className="center" style={{display: this.state.historyLoaded ? 'none' : 'block' }}><CircularProgress/></div>
+        
+
+        <div className="card-panel " style={{ borderRadius: "10px" }} style={{display: this.state.historyLoaded ? 'block' : 'none' }} >
+          <h5 className="center">Upload History</h5>
           <table className="highlight responsive-table">
             <thead>
               <tr>
@@ -35,7 +46,7 @@ class History extends Component {
                 <th>File Used</th>
                 <th>Template Used</th>
                 <th>Status</th>
-                <th>Error Log</th>
+                
               </tr>
             </thead>
 
@@ -43,13 +54,14 @@ class History extends Component {
               {renderHistory}
             </tbody>
           </table>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+     
         </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
       </div>
     );
   }
