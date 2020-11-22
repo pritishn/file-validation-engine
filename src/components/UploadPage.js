@@ -78,7 +78,7 @@ class UploadPage extends Component {
     await this.setState({ testMode: !this.state.testMode });
   };
   uploadFile = async (e)=>{
-    uploadFileAWS(this.fileInput.current.inputFileRef.current.files[0]);
+    uploadFileAWS(this.fileInput.current.inputFileRef.current.files[0],this.state.selectedTemplate);
   }
   render() {
     const templateOption = this.state.templates.map((template) => {
