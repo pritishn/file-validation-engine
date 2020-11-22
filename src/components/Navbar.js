@@ -18,7 +18,7 @@ class Navbar extends Component {
             <li class="tab">
                 <Link to="/">Home </Link>
               </li>
-              <li class="tab">	∎
+              <li class="tab">
               </li>
               {/* <li><Link to="/login">Login </Link></li> */}
               <li class="tab">
@@ -31,7 +31,7 @@ class Navbar extends Component {
                 <Link to="/upload">Upload File</Link>
               </li>
 
-              <li class="tab">	∎
+              <li class="tab">
               </li>
               <li class="tab">
                 <Link to="/add_numeric">Make Numeric Template</Link>
