@@ -46,8 +46,8 @@ class History extends Component {
                 <th>File Used</th>
                 <th>Template Used</th>
                 <th>Status</th>
-                
-              </tr>
+                <th>File Link</th>
+             </tr>
             </thead>
 
             <tbody>

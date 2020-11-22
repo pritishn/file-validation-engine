@@ -1,4 +1,4 @@
-import db from "/firebase/firebase-intercations";
+import {db} from "./firebase/firebase-intercations";
 
 export const validateRow = async (rowNum, data, fileError, template) => {
   //data is row
@@ -68,7 +68,7 @@ export const validateRow = async (rowNum, data, fileError, template) => {
             default_message +
             " Database Query Failed : " +
             " Collection:" +
-            collection +
+            field.collection +
             ", Query:" +
             field.header +
             ",==," +
@@ -83,9 +83,9 @@ export const validateRow = async (rowNum, data, fileError, template) => {
             default_message +
             " Database Query Failed : " +
             " Collection:" +
-            collection +
+            field.collection +
             ", Query:" +
-            databaseQuery +
+            field.databaseQuery +
             "\n"
           );
         }
@@ -98,32 +98,37 @@ export const validateRow = async (rowNum, data, fileError, template) => {
     return default_message + " Binary Expression Failed!\n";
   }
 };
-
+async function verifyDate(data,format){
+ return true;
+}
 async function booleanExpressionParser(group, binary_expression) {
+  if(binary_expression=='')return true;
   let postfix = await getPostFixForm(binary_expression);
   return await evaluatePostFix(group, postfix);
 }
 async function evaluatePostFix(group, postfix) {
   let stack = [];
   for (let c of postfix) {
+
     if ((c >= "a" && c <= "z") || (c >= "A" && c <= "Z")) {
       stack.push(group[c]);
     } else {
+      let val1,val2;
       switch (c) {
         case "!":
-          let val = !stack.pop();
-          stack.push(val);
+          val1 = !stack.pop();
+          stack.push(val1);
           break;
 
         case "&":
-          let val1 = stack.pop();
-          let val2 = stack.pop();
+          val1 = stack.pop();
+          val2 = stack.pop();
           stack.push(val1 & val2);
           break;
 
         case "|":
-          let val1 = stack.pop();
-          let val2 = stack.pop();
+          val1 = stack.pop();
+          val2 = stack.pop();
           stack.push(val1 & val2);
           break;
 
@@ -153,7 +158,7 @@ async function getPostFixForm(expression) {
     } else {
       while (
         stack.length > 0 &&
-        precedence[c] <= precedence[tack[stack.length - 1]]
+        precedence[c] <= precedence[stack[stack.length - 1]]
       ) {
         postfix += stack.pop();
       }

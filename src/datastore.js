@@ -14,8 +14,7 @@ let database = {
 //     },
 //     file:"file",
 //     template:"template",
-//     status:"Successful",
-//     errorLogLink:"elog link 1"
+//     status:"Successful"
 // }]
 
 

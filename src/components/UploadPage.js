@@ -30,7 +30,7 @@ class UploadPage extends Component {
         parser.abort();
       }
       await this.setState({rowBeingChecked:this.state.rowBeingChecked+1});
-      let error = "";// await validateRow(row);
+      let error = await validateRow(row);
       if(error!==null)this.errors.push(error);
     },
     complete:async ()=>{
