@@ -12,7 +12,7 @@ export default class ErrorLog extends Component {
     if(this.props.errorReports.length>0)
     this.setState({ errorReports : this.props.errorReports},()=>{
       let messages=[];
-      messages.push(<p>'==================== ERROR FILE ========================\n'</p>);
+      messages.push(<p>'==================== ERROR FILE ========================'</p>);
       for (const report of this.state.errorReports){
         messages.push(report);
       }

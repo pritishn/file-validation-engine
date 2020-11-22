@@ -14,7 +14,7 @@ class History extends Component {
     }
     this.setState({
       history: database.history,
-      historyLoaded:true
+      historyLoaded:true,
     });
   }
   render() {
