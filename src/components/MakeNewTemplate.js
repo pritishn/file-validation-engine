@@ -6,6 +6,7 @@ import database from "../datastore";
 import NotLoggedIn from "./NotLoggedIn";
 import TemplateField from "./TemplateField";
 import { saveTemplateToDB } from "../firebase/firebase-intercations";
+import { CSVReader } from "react-papaparse";
 
 class MakeNewTemplates extends Component {
   state = {
@@ -16,7 +17,15 @@ class MakeNewTemplates extends Component {
     showgroupform: false,
     form_submitted: false,
   };
-
+  extractConfig ={
+    step:(row,parser)=>{
+      parser.abort();
+      this.props.history.push({
+        pathname: '/extract_headers',
+        state: { numberOfFields : row.data.length,fields:row.data}
+      });
+    }
+  }
   createFields = (e) => {
     e.preventDefault();
 
@@ -40,7 +49,9 @@ class MakeNewTemplates extends Component {
       fields: temp,
     });
   };
-  componentDidMount() {}
+  extractionFileLoaded(){
+
+  }
   giveDataToParent = (data, index) => {
     let temp_fields = this.state.fields;
     temp_fields[index] = data;
@@ -59,7 +70,6 @@ class MakeNewTemplates extends Component {
     };
     await saveTemplateToDB(final_template);
     alert("Template Saved to DB!");
-    
   };
   handleGroupRelation = (e) => {
     this.setState({
@@ -118,6 +128,16 @@ class MakeNewTemplates extends Component {
               <button className="btn-small light-blue darken-3" type="submit">
                 Create Fields
               </button>
+            </div>
+            <div className="col row s12 m12 ">
+              <div className="col center s12 m12" style={{ margin:"10px",height: "25px",paddingLeft:"30%",paddingRight:"30%" }}>
+                <CSVReader
+                  onDrop={this.extractionFileLoaded}
+                  config={this.extractConfig}
+                >
+                  <span>Or extract from file.</span>
+                </CSVReader>
+              </div>
             </div>
           </form>
         </div>

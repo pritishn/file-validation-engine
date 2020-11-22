@@ -21,6 +21,7 @@ import ShowTemplateField from "./components/ShowTemplateField";
 import showTemplate from "./components/ShowTemplate";
 import ErrorLog from "./components/ErrorLog";
 import Footer from "./components/Footer";
+import ExtractHeaders from "./components/ExtractHeaders";
 
 class App extends Component {
   state = {
@@ -47,6 +48,7 @@ class App extends Component {
             <Route exact path="/upload" component={UploadPage} />
             <Route exact path="/template_field" component={TemplateField} />
             <Route exact path="/template_card" component={TemplateCard} />
+            <Route exact path="/extract_headers" component={ExtractHeaders}/>
             <Route exact path="/history" component={History} />
             <Route exact path="/show" component={ShowTemplate} />
             <Route exact path="/single" component={ShowTemplateField} />

@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class TemplateCard extends Component {
-  state = {};
+  state = { templateName:"",
+    templateDescription:"",
+    ownerName:"",
+    templateID:"",
+    dateCreated:""
+  };
   componentDidMount(){
     let data=this.props.template_data;
     this.setState({

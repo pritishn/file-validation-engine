@@ -1,19 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
-	return (
-		<div>
-			<footer id='footer'>
-				<div className='footer-two'>
-					<p
-						style={{ letterSpacing: '0.5px' }}
-						className='footer-text'
-					>
-					Made with ❤️ by SudoCoders
-					</p>
-				</div>
-			</footer>
-		</div>
-	);
+  return (
+	  <footer className="">
+        {/* <div class="blue" style={{position:"absolute",bottom:"0",height:"30px",width:"100%"}}>
+			<div style={{marginLeft:"40%",fontSize:"19px"}}>Made with ❤️ by SudoCoders</div>
+  				
+      </div> */}
+	  </footer>
+  );
 };
 export default Footer;

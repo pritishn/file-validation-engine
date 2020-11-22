@@ -3,45 +3,21 @@ import database from "../datastore";
 import ShowTemplateField from "./ShowTemplateField"
 export default class ShowTemplate extends Component {
   state = {
-    name: "ANURAGS TEMPLATE",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    fields: [
-      {
-        headerName: "Field1",
-        dataType: "String",
-        isDateShowing: true,
-        dateType: "DD/MM/YYYY",
-        group: "1",
-        required: true,
-        regex: "s/s*",
-        collection: "employee",
-        databaseQuery: "randomdbQuery",
-      },
-      {
-        headerName: "",
-        dataType: "String",
-        isDateShowing: false,
-        dateType: "",
-        group: "",
-        required: false,
-        regex: "",
-        collection: "",
-        databaseQuery: "",
-      },
-    ],
+    name: "",
+    description: "",
+    fields: [],
     groupRelations: "",
   };
 
   componentDidMount() {
-    // let template = database.templates.find(
-    //   (template) => template.templateID == this.props.templateID
-    // );
-    // this.setState({
-    //   name: template.name,
-    //   description: template.description,
-    //   fields: template.fields,
-    //   groupRelations: template.groupRelations,
-    // });
+    let template = database.templates.find(
+      (template) => template.templateID == this.props.match.params.id);
+    this.setState({
+      name: template.name,
+      description: template.description,
+      fields: template.fields,
+      groupRelations: template.groupRelations,
+    });
   }
 
   render() {
@@ -57,11 +33,11 @@ export default class ShowTemplate extends Component {
         <div className="row">
         <form  className="col row s12 m12" onSubmit={this.createFields}>
             <div className="col center s12 m12">
-              <label htmlFor="template-name">Template Name:</label>
+              <label htmlFor="template-name" className="active">Template Name:</label>
               <input id="template-name" name="template-name" value={this.state.name} required />
             </div>
             <div className="col center s12 m12">
-              <label htmlFor="template-desc">Template Description:</label>
+              <label htmlFor="template-desc" className="active">Template Description:</label>
               <input  className="materialize-textarea" id="template-desc" name="template-desc" value={this.state.description} required />
             </div>
             <br/><br/>

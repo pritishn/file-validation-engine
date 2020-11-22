@@ -40,7 +40,7 @@ class ShowTemplateField extends Component {
           id="dateFormat"
           defaultValue={this.state.dateType}
         />
-        <label htmlFor="dateFormat">Date</label>
+        <label htmlFor="dateFormat" className="active">Date</label>
       </div>
     ) : (
       null
@@ -56,7 +56,7 @@ class ShowTemplateField extends Component {
             placeholder="Regex"
             defaultValue={this.state.regex}
           />
-          <label htmlFor="regex">Regex Query</label>
+          <label htmlFor="regex" className="active">Regex Query</label>
         </div>
       </div>
     );
@@ -64,6 +64,7 @@ class ShowTemplateField extends Component {
     const displayDB = (
       <div className="row input-field s12 m12">
         <div className="col s6 m6">
+        <label htmlFor="dbName" className="active">Database Collection</label>
           <input
             name="dbName"
             id="dbName"
@@ -71,18 +72,18 @@ class ShowTemplateField extends Component {
             placeholder="Database Name"
             defaultValue={this.state.collection}
           />
-          <label htmlFor="dbName">Database Query</label>
+          
         </div>
         <div className="col s6 m6">
+        <label htmlFor="dbQuery" className="active">Database Query</label>
           <input
             name="dbQuery"
             id="dbQuery"
             className="validate"
             placeholder="Database Query"
             defaultValue={this.state.databaseQuery}
-            required
           />
-          <label htmlFor="dbQuery">Database Query</label>
+          
         </div>
       </div>
     );
@@ -110,7 +111,7 @@ class ShowTemplateField extends Component {
                 name ="dataType"
                 id ="dataType"
               />
-              <label htmlFor="dataType">Data</label>
+              <label htmlFor="dataType" className="active">Data</label>
             </div>
             {displayDateSelector}
             <div className="input-field col s1 m1">
