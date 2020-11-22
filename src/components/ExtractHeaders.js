@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../firebase/firebase-init";
-import { BrowserRouter, Link } from "react-router-dom";
-import ReactDOM, { render } from "react-dom";
 import database from "../datastore";
 import NotLoggedIn from "./NotLoggedIn";
 import TemplateField from "./TemplateField";
@@ -19,7 +17,16 @@ class ExtractHeaders extends Component {
 
   createFields = (e) => {
     e.preventDefault();
-
+    this.setState({
+      name: e.target.elements["template-name"].value,
+      description: e.target.elements["template-desc"].value,
+      showgroupform: true,
+      fields: temp,
+    });
+  };
+  componentDidMount() {
+    var numberOfFields = this.props.numberOfFields;
+    //Number(e.target.elements["number-of-fields"].value);
     var singleField = {
       headerName: "",
       dataType: "",
@@ -30,18 +37,16 @@ class ExtractHeaders extends Component {
       collection: "",
       databaseQuery: "",
     };
-    var numberOfFields = Number(e.target.elements["number-of-fields"].value);
     var temp = Array(numberOfFields).fill(singleField);
+    for (let i=0;i<numberOfFields;i++){
 
+    }
     this.setState({
       name: e.target.elements["template-name"].value,
       description: e.target.elements["template-desc"].value,
       showgroupform: true,
       fields: temp,
     });
-  };
-  componentDidMount() {
-
   }
   giveDataToParent = (data, index) => {
     let temp_fields = this.state.fields;
@@ -116,7 +121,7 @@ class ExtractHeaders extends Component {
           {renderFields}
           {renderGroupRelation}
           <div className="col center s12 m12">
-            <button className="btn light-blue darken-3" onClick={this.onSubmit}>
+          <button className="btn light-blue darken-4" onClick={this.onSubmit}>
               Save Template!
             </button>
           </div>

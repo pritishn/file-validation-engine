@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import firebase from '../firebase/firebase-init'
 import { BrowserRouter, Link } from "react-router-dom";
+import NotLoggedIn from "./NotLoggedIn";
 import database from "../datastore";
 import addicon from "../add.svg";
 import ReactDOM from "react-dom";
@@ -19,7 +21,11 @@ class ViewTemplates extends Component {
         </div>
       ):(null);
     });
-    return (
+    return !firebase.auth().currentUser ? (
+      <div className="container">
+        <NotLoggedIn />
+      </div>
+      ):(
       <div className="container ">
         <div className="row">
         <div className="col m3 s3"></div>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "@material-ui/core";
 import database from "../datastore";
 
-class TemplateField extends Component {
+class TemplateFieldWithData extends Component {
   state = {
     headerName: "",
     dataType: "String",
@@ -43,6 +43,9 @@ class TemplateField extends Component {
   handleCollection = (e) => this.setState({ collection: e.target.value });
   handleQuery = (e) => this.setState({ databaseQuery: e.target.value });
 // ... Data handler complete ...
+  async componentDidMount(){
+    
+  }
   async componentDidUpdate(prevProps){
   
     if((!prevProps.form_submitted) && (this.props.form_submitted) ){
@@ -204,4 +207,4 @@ class TemplateField extends Component {
   }
 }
 
-export default TemplateField;
+export default TemplateFieldWithData;
