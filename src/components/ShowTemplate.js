@@ -51,7 +51,7 @@ export default class ShowTemplate extends Component {
               {fields}
             </div>
           </form>
-          <div className="col center s12 m12">
+          <div style={{paddingBottom: "20px"}} className="col center s12 m12">
             <button className="btn light-blue darken-3" onClick={this.goToUploadPage}>
               Upload Using This Template  
             </button>
