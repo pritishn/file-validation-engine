@@ -6,70 +6,68 @@ import { getAllTemplates } from "../firebase/firebase-intercations";
 import ErrorLog from "./ErrorLog";
 import TemplateCard from "./TemplateCard";
 import { CSVReader } from "react-papaparse";
-import {validateRow} from '../validator';
+import { validateRow } from "../validator";
+import { parse } from "papaparse";
+import { CircularProgress } from "@material-ui/core";
 class UploadPage extends Component {
   state = {
     selectedTemplate: null,
-    hasError: false,
     templates: [],
-    userPressedAbort : false,
-    rowBeingChecked:0,
-    validationComplete:false,
-    testCheckerMode:false,
-    testCheckerComplete:false,
-    showErrors:false,
+    validationStarted:false,
+    validationComplete: false,
+    testMode:false,
+    progress:"",
+    errors : [],
   };
+ 
+  temp_errors=[];
 
-  errors=[];
-  
   fullChecker = {
-    header:true,
-    skipEmptyLines: true,
-    step:async (row,parser)=>{
-      if(this.state.userPressedAbort){
-        parser.abort();
-      }
-      await this.setState({rowBeingChecked:this.state.rowBeingChecked+1});
-      let error = await validateRow(row);
-      if(error!==null)this.errors.push(error);
-    },
-    complete:async ()=>{
-      await this.setState({validationComplete:true,hasError:(this.errors.length>0)?true:false});
-      this.showErrors();
-    }
+    header: true,
+    skipEmptyLines: true
   };
+  // testChecker = {
+  //   header: true,
+  //   skipEmptyLines:true
+  // }
 
-  testChecker = {
-    header:true,
-    skipEmptyLines: true,
-    step:async (row,parser)=>{
-      if(this.state.userPressedAbort || this.state.rowBeingChecked >= 10){
-        parser.abort();
-        this.setState({testCheckerComplete:true});
-      }
-      await this.setState({rowBeingChecked:this.state.rowBeingChecked+1});
-      let error = await validateRow(row.data,row.errors,this.selectedTemplate);
-      this.errors.push(error);
-    }
+  showErrors = () => {
+    console.log(this.state.errors);
   };
+  
+  processFile=async (results)=>{
+    this.setState({validationStarted:true, validationComplete:false});
+    let i=1;
+    this.temp_errors = [];
+    let total=results.length;
+    for(const row of results){
+      if(this.state.testMode && i == 11) {break;}
+      const error = await validateRow(i,row.data,row.errors,this.state.selectedTemplate);
+      i++; await this.setState({progress:(i/total*100)});
+      console.log(this.state.progress);
+      if(error){
+        this.temp_errors.push(error);
+      }
+    }
+    this.setState({errors:this.temp_errors,validationStarted:false, validationComplete:true});
+    console.log(this.state.errors);
+  }
 
   async componentDidMount() {
     var template = database.templates;
-   
-    this.setState({templates: template});
-    console.log(this.state.templates);
+    this.setState({ templates: template });
   }
 
   changeSelected = async (e) => {
     if (e.target.selectedIndex - 1 == -1) return;
     var template = this.state.templates[e.target.selectedIndex - 1];
-    await this.setState({selectedTemplate: null});
-    await this.setState({selectedTemplate: template});
+    await this.setState({ selectedTemplate: null });
+    await this.setState({ selectedTemplate: template });
   };
-  changeMode = async (e)=>{
+  changeMode = async (e) => {
     e.preventDefault();
-    await this.setState({testCheckerMode:!this.state.testCheckerMode});
-  }
+    await this.setState({ testMode: !this.state.testMode });
+  };
   render() {
     const templateOption = this.state.templates.map((template) => {
       return <option value={template.templateID}>{template.name}</option>;
@@ -80,9 +78,9 @@ class UploadPage extends Component {
       ) : null;
 
     const showError = () =>
-      this.state.hasError ? (
+      this.state.validationComplete ? (
         <div className="center">
-          <ErrorLog errorReports={this.errors}></ErrorLog>
+          <ErrorLog errorReports={this.state.errors}></ErrorLog>
         </div>
       ) : null;
 
@@ -103,12 +101,24 @@ class UploadPage extends Component {
               </select>
             </div>
             {selectedTemplate()}
-            <button className="btn col s4 m4 light-blue darken-3" style={{ height: "70px",marginTop:"10px" }} onClick={this.changeMode}>{"Enable "+(this.state.testCheckerMode?"Full":"Test") + " Mode"}</button>
+            <button
+              className="btn col s4 m4 light-blue darken-3"
+              style={{ height: "70px", marginTop: "10px" }}
+              onClick={this.changeMode}
+            >
+              {"Enable " +
+                (this.state.testMode ? "Full" : "Test") +
+                " Mode"}
+            </button>
             <div className="col s8 m8" style={{ height: "100px" }}>
               <CSVReader
-                onDrop={null}
+                onDrop={this.processFile}
                 onError={null}
-                config={this.state.testCheckerMode?this.testChecker:this.fullChecker}
+                config={
+                  // this.state.testCheckerMode? 
+                   // this.testChecker
+                   this.fullChecker
+                }
                 addRemoveButton
                 removeButtonColor="#659cef"
               >
@@ -116,12 +126,10 @@ class UploadPage extends Component {
               </CSVReader>
             </div>
           </form>
+          <div className="col s12 m12 center" style={{marginTop:"20px",display: this.state.validationStarted ? 'block' : 'none' }}><CircularProgress/> <div style={{marginLeft:"2px",marginTop:"-30px",fontSize:"13px"}}>{Math.floor(this.state.progress)}%</div></div>
+        
           {showError()}
         </div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import firebase from "../firebase/firebase-init";
 import database from "../datastore";
 import NotLoggedIn from "./NotLoggedIn";
 import TemplateFieldWithData from "./TemplateFieldWithData";
-import { saveTemplateToDB } from "../firebase/firebase-intercations";
+import { getAllTemplates, saveTemplateToDB } from "../firebase/firebase-intercations";
 
 class ExtractHeaders extends Component {
   state = {
@@ -55,8 +55,8 @@ class ExtractHeaders extends Component {
       fields: this.state.fields,
       groupRelations: this.state.groupRelations,
     };
-    final_template['templateID'] = await saveTemplateToDB(final_template);
-    database.templates.push(final_template);
+    await saveTemplateToDB(final_template);
+    database.templates = await getAllTemplates();
     alert("Template Saved to DB!");
   };
   handleGroupRelation = (e) => {

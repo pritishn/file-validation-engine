@@ -2,8 +2,11 @@ import {db} from "./firebase/firebase-intercations";
 
 export const validateRow = async (rowNum, data, fileError, template) => {
   //data is row
+  console.log(rowNum, data, fileError, template);
+  
   let default_message = "At row:" + rowNum + "\n";
-  if (fileError) {
+
+  if (fileError.length) {
     return (
       default_message +
       "Error Type:" +
@@ -18,41 +21,41 @@ export const validateRow = async (rowNum, data, fileError, template) => {
   }
 
   let fields = template.fields;
-  let binary_expression = template.binary_expression;
+  let binary_expression = template.groupRelations;
   let group = {};
   for (const field of fields) {
-    group[field.group] = false;
+    group[field.group] = true;
   }
 
   for (const field of fields) {
     if (!field.header in data) {
       return default_message + " Header Missing : " + field + "\n";
     }
-    if (field.required == true && data[field.header] == "") {
+    if (field.required == true && data[field.headerName] == "") {
       return (
-        default_message + " Required field " + field.header + "is missing\n"
+        default_message + " Required field " + field.headerName + "is missing\n"
       );
     }
-    if (field.required == false && data[field.header] == "") {
-      group[field.group] = group[field.group] & true;
+    if (field.required == false && data[field.headerName] == "") {
+      group[field.group] = false;
     }
-    if(field.dataType=='Number' && isNaN(data[field.header])){
+    if(field.dataType=='Number' && isNaN(data[field.headerName])){
       return (
-        default_message+ field.header + "is not a Number\n"
+        default_message+ field.headerName + "is not a Number\n"
       );
     }
-    if(field.dataType=='Alpha-Numeric' && verifyRegex(data[field.header],'^[a-zA-Z0-9]+$')){
+    if(field.dataType=='Alpha-Numeric' && verifyRegex(data[field.headerName],'^[a-zA-Z0-9]+$')){
       return (
-        default_message+ field.header + "is not a Alpha Numeric\n"
+        default_message+ field.headerName + "is not a Alpha Numeric\n"
       );
     }
-    if(field.dataType=='Date' && verifyDate(data[field.header],data[field.dateType])){
+    if(field.dataType=='Date' && verifyDate(data[field.headerName],data[field.dateType])){
       return (
-        default_message+ field.header + "is not a valid Date for format in template!\n"
+        default_message+ field.headerName + " is not a valid Date for format in template!\n"
       );
     }
     
-    if (field.regex != "" && verifyRegex(data[field.header], field.regex)) {
+    if (field.regex != "" && verifyRegex(data[field.headerName], field.regex)) {
       return default_message + " Regex matching failed\n";
     }
     if (field.collection != "") {
@@ -61,7 +64,7 @@ export const validateRow = async (rowNum, data, fileError, template) => {
         resp = await verifyDB(
           field.collection,
           data,
-          field.header + ",==," + field.header
+          field.headerName + ",==," + field.headerName
         );
         if (!resp) {
           return (
@@ -70,9 +73,9 @@ export const validateRow = async (rowNum, data, fileError, template) => {
             " Collection:" +
             field.collection +
             ", Query:" +
-            field.header +
+            field.headerName +
             ",==," +
-            field.header +
+            field.headerName +
             "\n"
           );
         }
@@ -95,10 +98,18 @@ export const validateRow = async (rowNum, data, fileError, template) => {
   }
 
   if ((await booleanExpressionParser(group, binary_expression)) == false) {
+    console.log("binary fail");
     return default_message + " Binary Expression Failed!\n";
   }
 };
 async function verifyDate(data,format){
+  if(format=="MM/DD/YYYY"){
+
+  }else if(format=="DD/MM/YYYY"){
+
+  }else if(format=="YYYY/MM/DD"){
+    
+  }
  return true;
 }
 async function booleanExpressionParser(group, binary_expression) {
@@ -107,10 +118,12 @@ async function booleanExpressionParser(group, binary_expression) {
   return await evaluatePostFix(group, postfix);
 }
 async function evaluatePostFix(group, postfix) {
+ 
   let stack = [];
   for (let c of postfix) {
 
     if ((c >= "a" && c <= "z") || (c >= "A" && c <= "Z")) {
+      //console.log("putting value of "+c+" "+group[c]);
       stack.push(group[c]);
     } else {
       let val1,val2;
@@ -129,7 +142,7 @@ async function evaluatePostFix(group, postfix) {
         case "|":
           val1 = stack.pop();
           val2 = stack.pop();
-          stack.push(val1 & val2);
+          stack.push(val1 | val2);
           break;
 
         default:
@@ -137,9 +150,11 @@ async function evaluatePostFix(group, postfix) {
       }
     }
   }
+  // console.log(stack[0]);
   return stack.pop();
 }
 async function getPostFixForm(expression) {
+  console.log("exp=",expression);
   let postfix = "";
   let stack = [];
   let precedence = { "!": 3, "&": 2, "|": 1 };
@@ -162,6 +177,7 @@ async function getPostFixForm(expression) {
       ) {
         postfix += stack.pop();
       }
+      stack.push(c);
     }
   }
   while (stack.length > 0) postfix += stack.pop();
@@ -179,10 +195,10 @@ async function verifyDB(collection, data, Query) {
   let dbQuery = db.collection(collection);
   let subqueries = Query.split("&&");
   let success = true;
-
+  console.log(subqueries);
   subqueries.forEach((subquery) => {
     let condition = subquery.split(",");
-    console.log("querying:" + condition[0], condition[1], data[condition[2]]);
+    console.log(condition[0], condition[1], data[condition[2]]);
     dbQuery = dbQuery.where(condition[0], condition[1], data[condition[2]]);
   });
 
@@ -196,5 +212,6 @@ async function verifyDB(collection, data, Query) {
     .catch((err) => {
       console.log(err);
     });
+
   return success;
 }

@@ -4,20 +4,25 @@ import { saveAs } from "file-saver";
 
 export default class ErrorLog extends Component {
   state = {
-    errCode: 404,
-    errMessage: "This is a dummy error file",
-    fileName: "dummyFileName",
+    fileName:"Error Report",
+    errorReports: [],
+    errorMessage:[],
   };
+  componentDidMount(){
+    if(this.props.errorReports.length>0)
+    this.setState({ errorReports : this.props.errorReports},()=>{
+      let messages=[];
+      messages.push(<p>'==================== ERROR FILE ========================\n'</p>);
+      for (const report of this.state.errorReports){
+        messages.push(report);
+      }
+      this.setState({errorMessage:messages});
+    });
 
+  }
   handleClick = () => {
     const fileName = this.state.fileName;
-    const errorMessage =
-      "===============ERROR_MESSAGE===============\n" +
-      "ErrorCode: " +
-      this.state.errCode +
-      "\n" +
-      "ErrorMessage: " +
-      this.state.errMessage;
+    const errorMessage = this.state.errorMessage;
 
     var blob = new Blob([errorMessage], {
       type: "text/plain;charset=utf-8",
@@ -26,6 +31,8 @@ export default class ErrorLog extends Component {
   };
 
   render() {
+    const noError = (this.state.errorReports.length==0) ? ("NO ERRORS FOUND :)") : (null); 
+    
     return (
       <div className="row center">
         <div className="col s12 m12">
@@ -35,13 +42,14 @@ export default class ErrorLog extends Component {
                 Error Code: {this.state.errCode}
               </span>
               <div className="card card-content z-depth-1 ">
-                <span className="dell-blue-text">{this.state.errMessage}</span>
+                <span className="dell-blue-text">{noError} {this.state.errorMessage}</span>
               </div>
             </div>
             <div className="card-action ">
               <button
                 onClick={this.handleClick}
                 className="btn white dell-blue-text z-depth-1"
+                style={{display: this.state.errorReports.length>0 ? 'block' : 'none' }}
               >
                 Download Log
               </button>
