@@ -51,7 +51,7 @@ class LoginPage extends Component {
 							Hello {this.state.username}! You are logged in!
 						</p>
 						<div
-							className='card-action  indigo darken-4 center'
+							className='card-action  light-blue darken-3 center'
 							style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 						>
 											
@@ -79,7 +79,7 @@ class LoginPage extends Component {
 
 						<Link onClick={this.loginUser} className='white-text'>
 							<div
-								className='card-action center indigo darken-4'
+								className='card-action center light-blue darken-3'
 								style={{ borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}
 							>
 								<b>Click Here To Login</b>

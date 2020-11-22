@@ -115,7 +115,7 @@ class MakeNewTemplates extends Component {
               <input id="number-of-fields" name="number-of-fields" required />
             </div>
             <div className="col center s12 m12">
-              <button className="btn-small indigo darken-4" type="submit">
+              <button className="btn-small light-blue darken-3" type="submit">
                 Create Fields
               </button>
             </div>
@@ -125,7 +125,7 @@ class MakeNewTemplates extends Component {
           {renderFields}
           {renderGroupRelation}
           <div className="col center s12 m12">
-            <button className="btn indigo darken-4" onClick={this.onSubmit}>
+            <button className="btn light-blue darken-3" onClick={this.onSubmit}>
               Save Template!
             </button>
           </div>

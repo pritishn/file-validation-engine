@@ -116,7 +116,7 @@ class ExtractHeaders extends Component {
           {renderFields}
           {renderGroupRelation}
           <div className="col center s12 m12">
-            <button className="btn indigo darken-4" onClick={this.onSubmit}>
+            <button className="btn light-blue darken-3" onClick={this.onSubmit}>
               Save Template!
             </button>
           </div>
