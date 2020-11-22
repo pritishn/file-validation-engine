@@ -5,7 +5,7 @@ class NotLoggedIn extends Component {
 	render () {
 		//make navbar here
 		return (
-			<div className='NotLoggedIn center'>
+			<div className='NotLoggedIn card center'>
 				<p style={{ fontSize: '3em', fontWeight: '500', paddingTop: '5%' }}>
 					NOT LOGGED IN! <br /> Cannot Access This Feature!
 				</p>

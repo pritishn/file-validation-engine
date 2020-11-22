@@ -49,9 +49,6 @@ class MakeNewTemplates extends Component {
       fields: temp,
     });
   };
-  extractionFileLoaded(){
-
-  }
   giveDataToParent = (data, index) => {
     let temp_fields = this.state.fields;
     temp_fields[index] = data;
@@ -68,8 +65,8 @@ class MakeNewTemplates extends Component {
       fields: this.state.fields,
       groupRelations: this.state.groupRelations,
     };
-    final_template['templateID'] = await saveTemplateToDB(final_template);
-    database.templates.push(final_template);
+    await saveTemplateToDB(final_template);
+    database.templates = await getAllTemplates();
     alert("Template Saved to DB!");
   };
   handleGroupRelation = (e) => {
