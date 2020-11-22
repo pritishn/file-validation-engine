@@ -5,7 +5,7 @@ import ReactDOM, { render } from "react-dom";
 import database from "../datastore";
 import NotLoggedIn from "./NotLoggedIn";
 import TemplateField from "./TemplateField";
-import { saveTemplateToDB } from "../firebase/firebase-intercations";
+import { saveTemplateToDB ,getAllTemplates} from "../firebase/firebase-intercations";
 import { CSVReader } from "react-papaparse";
 
 class MakeNewTemplates extends Component {

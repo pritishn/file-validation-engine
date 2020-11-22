@@ -10,6 +10,11 @@ import { validateRow } from "../validator";
 import { parse } from "papaparse";
 import { CircularProgress } from "@material-ui/core";
 class UploadPage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.fileInput = React.createRef();
+  }
   state = {
     selectedTemplate: null,
     templates: [],
@@ -18,13 +23,19 @@ class UploadPage extends Component {
     testMode:false,
     progress:"",
     errors : [],
+    file:""
   };
  
   temp_errors=[];
 
   fullChecker = {
     header: true,
-    skipEmptyLines: true
+    skipEmptyLines: true,
+    complete: (results, file) => {
+      let f=file;
+      this.setState({file:f})
+      console.log("Parsing complete:", results, f)
+    }
   };
   // testChecker = {
   //   header: true,
@@ -32,7 +43,7 @@ class UploadPage extends Component {
   // }
 
   showErrors = () => {
-    console.log(this.state.errors);
+    //console.log(this.state.errors);
   };
   
   processFile=async (results)=>{
@@ -44,13 +55,14 @@ class UploadPage extends Component {
       if(this.state.testMode && i == 11) {break;}
       const error = await validateRow(i,row.data,row.errors,this.state.selectedTemplate);
       i++; await this.setState({progress:(i/total*100)});
-      console.log(this.state.progress);
+
       if(error){
         this.temp_errors.push(error);
       }
     }
     this.setState({errors:this.temp_errors,validationStarted:false, validationComplete:true});
     console.log(this.state.errors);
+    console.log(this.fileInput);
   }
 
   async componentDidMount() {
@@ -68,6 +80,8 @@ class UploadPage extends Component {
     e.preventDefault();
     await this.setState({ testMode: !this.state.testMode });
   };
+  
+  inputFile ="";
   render() {
     const templateOption = this.state.templates.map((template) => {
       return <option value={template.templateID}>{template.name}</option>;
@@ -113,6 +127,7 @@ class UploadPage extends Component {
             <div className="col s8 m8" style={{ height: "100px" }}>
               <CSVReader
                 onDrop={this.processFile}
+                inputRef={this.fileInput}
                 onError={null}
                 config={
                   // this.state.testCheckerMode? 
@@ -120,16 +135,25 @@ class UploadPage extends Component {
                    this.fullChecker
                 }
                 addRemoveButton
+               
                 removeButtonColor="#659cef"
               >
                 <span>Drop CSV file here or click to upload.</span>
               </CSVReader>
             </div>
           </form>
+          <input type="file"  onClick={this.handleFileInput} placeholder="j"/>
           <div className="col s12 m12 center" style={{marginTop:"20px",display: this.state.validationStarted ? 'block' : 'none' }}><CircularProgress/> <div style={{marginLeft:"2px",marginTop:"-30px",fontSize:"13px"}}>{Math.floor(this.state.progress)}%</div></div>
         
           {showError()}
+          <div className="col s12 m12 center" style={{marginTop:"20px",display: this.state.validationComplete && this.state.errors.length ==0 ? 'block' : 'none' }}><button className="btn dell-blue">Upload To AWS</button></div>
+        
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </div>
     );
   }

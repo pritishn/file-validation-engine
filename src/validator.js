@@ -2,7 +2,6 @@ import {db} from "./firebase/firebase-intercations";
 
 export const validateRow = async (rowNum, data, fileError, template) => {
   //data is row
-  console.log(rowNum, data, fileError, template);
   
   let default_message = "At row:" + rowNum + "\n";
 
