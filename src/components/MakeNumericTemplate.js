@@ -4,15 +4,17 @@ import { BrowserRouter, Link } from "react-router-dom";
 import ReactDOM, { render } from "react-dom";
 import database from "../datastore";
 import NotLoggedIn from "./NotLoggedIn";
-import TemplateField from "./TemplateField";
-import { saveTemplateToDB } from "../firebase/firebase-intercations";
+import NumericTemplateField from "./NumericTemplateField";
+import { saveTemplateToDB_Numeric } from "../firebase/firebase-intercations";
+
 
 class MakeNumericTemplate extends Component {
     state = {
         name: "",
         description: "",
         fields: [],
-        showgroupform: false,
+        rule : "",
+        showRule: false,
         form_submitted: false,
       };
     
@@ -21,9 +23,6 @@ class MakeNumericTemplate extends Component {
     
         var singleField = {
           headerName: "",
-          dataType: "",
-          dateType: "",
-          collection: "",
         };
         var numberOfFields = Number(e.target.elements["number-of-fields"].value);
         var temp = Array(numberOfFields).fill(singleField);
@@ -31,7 +30,7 @@ class MakeNumericTemplate extends Component {
         this.setState({
           name: e.target.elements["template-name"].value,
           description: e.target.elements["template-desc"].value,
-          showgroupform: true,
+          showRule: true,
           fields: temp,
         });
       };
@@ -50,21 +49,39 @@ class MakeNumericTemplate extends Component {
           name: this.state.name,
           description: this.state.description,
           fields: this.state.fields,
+          rule: this.state.rule,
         };
-        await saveTemplateToDB(final_template);
-        alert("Template Saved to DB!");
+        await saveTemplateToDB_Numeric(final_template);
+        alert("Numeric Template Saved to DB!");
         
+      };
+
+      handleRule = (e) => {
+        this.setState({
+          rule : e.target.value,
+        });
       };
       render() {
         const renderFields = this.state.fields.map((field, index) => {
           return (
-            <TemplateField
+            <NumericTemplateField
               param_id={index}
               form_submitted={this.state.form_submitted}
               giveDataToParent={this.giveDataToParent}
             />
           );
         });
+
+        const renderRule = this.state.showRule ? (
+          <div className="container col s12 m12">
+              <div class="input-field col s12 m12">
+                <input id="Rule" type="text" class="validate" onChange={this.handleRule} />
+                <label for="Rule">Rule</label>
+              </div>
+          </div>
+        ) : (
+          <div> </div>
+        );
     
         return !firebase.auth().currentUser ? (
           <div className="container">
@@ -97,6 +114,7 @@ class MakeNumericTemplate extends Component {
             </div>
             <div className="row">
               {renderFields}
+              {renderRule}
               <div className="col center s12 m12">
                 <button className="btn light-blue darken-3" onClick={this.onSubmit}>
                   Save Template!
