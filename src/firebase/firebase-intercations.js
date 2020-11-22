@@ -1,6 +1,6 @@
 import firebase from "./firebase-init";
 
-const db = firebase.firestore();
+export const db = firebase.firestore();
 let provider = new firebase.auth.GoogleAuthProvider();
 
 export async function getAllTemplates() {

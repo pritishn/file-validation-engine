@@ -6,7 +6,7 @@ import { getAllTemplates } from "../firebase/firebase-intercations";
 import ErrorLog from "./ErrorLog";
 import TemplateCard from "./TemplateCard";
 import { CSVReader } from "react-papaparse";
-
+import {validateRow} from '../validator';
 class UploadPage extends Component {
   state = {
     selectedTemplate: null,
