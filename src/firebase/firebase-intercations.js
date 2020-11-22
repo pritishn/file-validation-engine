@@ -105,6 +105,21 @@ export async function getUserTemplates(uid) {
   }
 }
 
+export async function putHistory(data) {
+  //saves template json to db
+  var ret = [],
+  error = null;
+  await db
+    .collection("History")
+    .add(data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
 export async function getHistory() {
   //saves template json to db
   var ret = [],
@@ -127,7 +142,6 @@ export async function getHistory() {
       return error;
     }
 }
-
 export async function getCollectionList() {
   //saves template json to db
   var ret = [],

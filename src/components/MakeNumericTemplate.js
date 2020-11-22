@@ -31,7 +31,7 @@ class MakeNumericTemplate extends Component {
           name: e.target.elements["template-name"].value,
           description: e.target.elements["template-desc"].value,
           showRule: true,
-          fields: temp,
+          fields: temp
         });
       };
       componentDidMount() {}

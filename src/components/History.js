@@ -16,6 +16,7 @@ class History extends Component {
       history: database.history,
       historyLoaded:true,
     });
+    console.log("history",this.state.history);
   }
   render() {
     const renderHistory = this.state.history.map((data) => {
@@ -23,11 +24,11 @@ class History extends Component {
         <tr>
           <td>{data.date}</td>
           <td>{data.file}</td>
-          <td>{data.template}</td>
+          <td>{data.template.name}</td>
           <td style={{ color: data.status == "Successful" ? "green" : "red" }}>
             {data.status}
           </td>
-          {/* <td>{data.fileStoreLink}</td> */}
+          <td style={{ display: data.status == "Successful" ? "block" : "none" }}><a href={data.fileStoreLink}>Link</a></td>
         </tr>
       ) : null;
     });
