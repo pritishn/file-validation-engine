@@ -8,11 +8,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { render } from "@testing-library/react";
 import { Component } from "react";
 import {
+  getAllTemplates_N,
   getAllTemplates,
   getCollectionList,
 } from "./firebase/firebase-intercations";
 import MakeNewTemplates from "./components/MakeNewTemplate";
 import database from "./datastore";
+import numeric from "./numeric";
 import TemplateField from "./components/TemplateField";
 import "./App.css";
 import TemplateCard from "./components/TemplateCard";
@@ -22,6 +24,7 @@ import ShowTemplateField from "./components/ShowTemplateField";
 import showTemplate from "./components/ShowTemplate";
 import ErrorLog from "./components/ErrorLog";
 import Footer from "./components/Footer";
+import NumericUploadPage from "./components/NumericUploadPage";
 import ExtractHeaders from "./components/ExtractHeaders";
 
 class App extends Component {
@@ -31,6 +34,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
+    numeric.templates =await getAllTemplates_N();
     database.templates = await getAllTemplates();
     console.log(database.templates);
     database.collections = await getCollectionList();
@@ -57,6 +61,7 @@ class App extends Component {
             <Route exact path="/template/:id" component={showTemplate} />
             <Route exact path="/error" component={ErrorLog} />
             <Route exact path="/add_numeric" component={MakeNumericTemplate} />
+            <Route exact path="/upload_numeric" component={NumericUploadPage} />
           </Switch>
           <Footer />
         </div>
