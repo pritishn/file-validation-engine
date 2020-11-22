@@ -3,6 +3,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  padding-bottom: 40px;
 }
 
 main {
@@ -45,6 +46,7 @@ input {
 }
 /*------------------------------------Footer----------------------------------*/
 #footer {
+  padding: 0.8rem;
   position: absolute;
   left: 0;
   bottom: 0;
