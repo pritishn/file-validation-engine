@@ -2,6 +2,7 @@ let database = {
     collections:[{name:"He"},{name:"Ho"}],
     templates:[],
     history:[],
+    numeric:[],
     historyLoaded:false
 };
 

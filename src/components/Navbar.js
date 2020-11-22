@@ -18,12 +18,11 @@ class Navbar extends Component {
             <li class="tab">
                 <Link to="/">Home </Link>
               </li>
+              <li class="tab">	∎
+              </li>
               {/* <li><Link to="/login">Login </Link></li> */}
               <li class="tab">
                 <Link to="/make_template">Make New Template</Link>
-              </li>
-              <li class="tab">
-                <Link to="/add_numeric">Make Numeric Template</Link>
               </li>
               <li class="tab">
                 <Link to="/view_templates">View Templates</Link>
@@ -31,7 +30,16 @@ class Navbar extends Component {
               <li class="tab">
                 <Link to="/upload">Upload File</Link>
               </li>
+
+              <li class="tab">	∎
+              </li>
+              <li class="tab">
+                <Link to="/add_numeric">Make Numeric Template</Link>
+              </li>
               
+              <li class="tab">
+                <Link to="/view_numeric">View Numeric Templates</Link>
+              </li>
               <li class="tab">
                 <Link to="/upload_numeric">Upload Numeric File</Link>
               </li>

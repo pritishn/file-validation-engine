@@ -20,12 +20,14 @@ import "./App.css";
 import TemplateCard from "./components/TemplateCard";
 import History from "./components/History";
 import ShowTemplate from "./components/ShowTemplate";
+import showNumericTemplate from "./components/ShowNumericTemplate";
 import ShowTemplateField from "./components/ShowTemplateField";
 import showTemplate from "./components/ShowTemplate";
 import ErrorLog from "./components/ErrorLog";
 import Footer from "./components/Footer";
 import NumericUploadPage from "./components/NumericUploadPage";
 import ExtractHeaders from "./components/ExtractHeaders";
+import ViewNumericTemplates from "./components/ViewNumericTemplates";
 
 class App extends Component {
   state = {
@@ -59,9 +61,11 @@ class App extends Component {
             <Route exact path="/show" component={ShowTemplate} />
             <Route exact path="/single" component={ShowTemplateField} />
             <Route exact path="/template/:id" component={showTemplate} />
+            <Route exact path="/num_template/:id" component={showNumericTemplate} />
             <Route exact path="/error" component={ErrorLog} />
             <Route exact path="/add_numeric" component={MakeNumericTemplate} />
             <Route exact path="/upload_numeric" component={NumericUploadPage} />
+            <Route exact path="/view_numeric" component={ViewNumericTemplates} />
           </Switch>
           <Footer />
         </div>

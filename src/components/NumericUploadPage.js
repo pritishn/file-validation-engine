@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import database from "../datastore";
 import { getAllTemplates } from "../firebase/firebase-intercations";
 import ErrorLog from "./ErrorLog";
-import TemplateCard from "./TemplateCard";
+import TemplateCardNumeric from "./TemplateCardNumeric";
 import { CSVReader } from "react-papaparse";
 import {validateRow_N} from '../validator';
 import numeric from "../numeric";
@@ -78,7 +78,7 @@ class NumericUploadPage extends Component {
     });
     const selectedTemplate = () =>
       this.state.selectedTemplate != null ? (
-        <TemplateCard template_data={this.state.selectedTemplate} />
+        <TemplateCardNumeric template_data={this.state.selectedTemplate} />
       ) : null;
 
     const showError = () =>
