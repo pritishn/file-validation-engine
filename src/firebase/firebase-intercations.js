@@ -44,6 +44,20 @@ export async function saveTemplateToDB(data) {
     });
 }
 
+export async function saveTemplateToDB_Numeric(data) {
+  //saves template json to db
+  await db
+    .collection("numeric")
+    .add(data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
+}
+
+
 export async function getUserTemplates(uid) {
   var ret = [],
     error = null;
