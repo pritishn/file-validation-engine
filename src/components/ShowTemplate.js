@@ -34,6 +34,20 @@ export default class ShowTemplate extends Component {
         </div>
       );
     });
+    const renderGroup =  (
+      <div className="container col s12 m12">
+        <div class="input-field">
+          <input
+            id="Rule"
+            type="text"
+            class="validate"
+            value={this.state.groupRelations}
+            readOnly
+          />
+          <label for="Rule" className="active">Group Relation</label>
+        </div>
+      </div>
+    );
     return (
       <div className="container">
         <div className="row">
@@ -49,6 +63,7 @@ export default class ShowTemplate extends Component {
             <br/><br/>
             <div className="card">
               {fields}
+              {renderGroup}
             </div>
           </form>
           <div style={{paddingBottom: "20px"}} className="col center s12 m12">
