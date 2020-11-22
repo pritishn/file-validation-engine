@@ -29,7 +29,7 @@ class Navbar extends Component {
                 <Link to="/upload">Upload File</Link>
               </li>
               <li class="tab">
-                <Link to="/upload">Numeric File</Link>
+                <Link to="/add_numeric">Numeric File</Link>
               </li>
             </ul>
           </div>

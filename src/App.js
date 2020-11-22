@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import UploadPage from "./components/UploadPage";
 import LoginPage from "./components/LoginPage";
 import ViewTemplates from "./components/ViewTemplates";
+import MakeNumericTemplate from "./components/MakeNumericTemplate";
 import "./firebase/firebase-intercations";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { render } from "@testing-library/react";
@@ -52,6 +53,7 @@ class App extends Component {
             <Route exact path="/single" component={ShowTemplateField} />
             <Route exact path="/template/:id" component={showTemplate} />
             <Route exact path="/error" component={ErrorLog} />
+            <Route exact path="/add_numeric" component={MakeNumericTemplate} />
           </Switch>
           <Footer />
         </div>
