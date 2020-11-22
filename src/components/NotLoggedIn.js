@@ -6,7 +6,7 @@ class NotLoggedIn extends Component {
 		return (
 			<div className='NotLoggedIn card center'>
 				<p style={{ fontSize: '1.8em', fontWeight: '470', paddingTop: '5%' }}>
-					NOT LOGGED IN! <br /> Cannot Access This Feature!
+					You are not LOGGED IN! <br />Please Login to Access this Feature
 				</p>
 				<Link to='/'>
 					<a className='btn btn-large btn-waves dell-blue-dark' style={{ borderRadius: '5px', fontSize: '1.1em',margin:'20px' }}>
