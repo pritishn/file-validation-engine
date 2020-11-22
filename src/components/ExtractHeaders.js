@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "../firebase/firebase-init";
 import database from "../datastore";
 import NotLoggedIn from "./NotLoggedIn";
-import TemplateField from "./TemplateField";
+import TemplateFieldWithData from "./TemplateFieldWithData";
 import { saveTemplateToDB } from "../firebase/firebase-intercations";
 
 class ExtractHeaders extends Component {
@@ -15,35 +15,26 @@ class ExtractHeaders extends Component {
     form_submitted: false,
   };
 
-  createFields = (e) => {
-    e.preventDefault();
-    this.setState({
-      name: e.target.elements["template-name"].value,
-      description: e.target.elements["template-desc"].value,
-      showgroupform: true,
-      fields: temp,
-    });
-  };
-  componentDidMount() {
-    var numberOfFields = this.props.numberOfFields;
+ async componentDidMount() {
+    var numberOfFields = this.props.location.state.numberOfFields;
     //Number(e.target.elements["number-of-fields"].value);
-    var singleField = {
-      headerName: "",
-      dataType: "",
-      dateType: "",
-      regex: "",
-      required: "",
-      group: "",
-      collection: "",
-      databaseQuery: "",
-    };
-    var temp = Array(numberOfFields).fill(singleField);
-    for (let i=0;i<numberOfFields;i++){
-
+    let temp = [];
+    for (let field of this.props.location.state.fields){
+       temp.push({
+        headerName: field,
+        dataType: "",
+        dateType: "",
+        regex: "",
+        required: "",
+        group: "",
+        collection: "",
+        databaseQuery: "",
+      })
     }
-    this.setState({
-      name: e.target.elements["template-name"].value,
-      description: e.target.elements["template-desc"].value,
+    console.log(temp);
+    await this.setState({
+      name: "",
+      description: "",
       showgroupform: true,
       fields: temp,
     });
@@ -75,8 +66,9 @@ class ExtractHeaders extends Component {
   render() {
     const renderFields = this.state.fields.map((field, index) => {
       return (
-        <TemplateField
+        <TemplateFieldWithData
           param_id={index}
+          headerName={this.state.fields[index].headerName}
           form_submitted={this.state.form_submitted}
           giveDataToParent={this.giveDataToParent}
         />
