@@ -26,6 +26,29 @@ export async function getAllTemplates() {
   }
 }
 
+export async function getAllTemplates_N() {
+  var ret = [],
+    error = null;
+  await db
+    .collection("numeric")
+    .get()
+    .then((docs) => {
+      docs.forEach((doc) => {
+        var _doc = doc.data();
+        _doc["templateID"] = doc.id;
+        ret.push(_doc);
+      });
+    })
+    .catch((err) => {
+      error = err;
+    });
+  if (error == null) {
+    return ret;
+  } else {
+    return error;
+  }
+}
+
 export const loginWithGooglePopup = async () => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   return await firebase.auth().signInWithPopup(provider);

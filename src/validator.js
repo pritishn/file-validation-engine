@@ -98,6 +98,32 @@ export const validateRow = async (rowNum, data, fileError, template) => {
     return default_message + " Binary Expression Failed!\n";
   }
 };
+
+export const validateRow_N = async (rowNum, data, fileError, template) => {
+  //data is row
+  let default_message = "At row:" + rowNum + "\n";
+  if (fileError) {
+    return (
+      default_message +
+      "Error Type:" +
+      fileError.type +
+      "\n Error message:" +
+      fileError.message +
+      "\n"
+    );
+  }
+  if (data.__parsed_extra) {
+    return default_message + " Extra Information Is Parsed\n";
+  }
+
+  let fields = template.fields;
+  let rule =  "col3 = row1 + row2"; 
+
+
+ 
+};
+
+
 async function verifyDate(data,format){
  return true;
 }

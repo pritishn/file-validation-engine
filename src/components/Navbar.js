@@ -23,13 +23,17 @@ class Navbar extends Component {
                 <Link to="/make_template">Make New Template</Link>
               </li>
               <li class="tab">
+                <Link to="/add_numeric">Make Numeric Template</Link>
+              </li>
+              <li class="tab">
                 <Link to="/view_templates">View Templates</Link>
               </li>
               <li class="tab">
                 <Link to="/upload">Upload File</Link>
               </li>
+              
               <li class="tab">
-                <Link to="/add_numeric">Numeric File</Link>
+                <Link to="/upload_numeric">Upload Numeric File</Link>
               </li>
             </ul>
           </div>
