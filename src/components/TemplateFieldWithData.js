@@ -19,7 +19,7 @@ class TemplateFieldWithData extends Component {
     collection: "",
     databaseQuery: "",
 
-    collectionList: database.allCollections,
+    collectionList: database.collections,
   };
 // ... Data handler functions ...
   handleDataType = (e) =>
@@ -44,7 +44,7 @@ class TemplateFieldWithData extends Component {
   handleQuery = (e) => this.setState({ databaseQuery: e.target.value });
 // ... Data handler complete ...
   async componentDidMount(){
-    
+    this.setState({headerName: this.props.headerName});
   }
   async componentDidUpdate(prevProps){
   
@@ -137,7 +137,7 @@ class TemplateFieldWithData extends Component {
           <div className="row">
             <div className="input-field col s2 m2">
               <input
-                placeholder="Header Name"
+                value={this.state.headerName}
                 id="header_name"
                 type="text"
                 className="validate"
