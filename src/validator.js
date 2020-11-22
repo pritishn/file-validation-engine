@@ -97,43 +97,21 @@ export const validateRow = async (rowNum, data, fileError, template) => {
   }
 
   if ((await booleanExpressionParser(group, binary_expression)) == false) {
-    console.log("binary fail");
     return default_message + " Binary Expression Failed!\n";
   }
 };
 
-export const validateRow_N = async (rowNum, data, fileError, template) => {
-  //data is row
-  let default_message = "At row:" + rowNum + "\n";
-  if (fileError) {
-    return (
-      default_message +
-      "Error Type:" +
-      fileError.type +
-      "\n Error message:" +
-      fileError.message +
-      "\n"
-    );
-  }
-  if (data.__parsed_extra) {
-    return default_message + " Extra Information Is Parsed\n";
-  }
-
-  let fields = template.fields;
-  let rule =  "col3 = row1 + row2"; 
-
-
- 
-};
 
 
 async function verifyDate(data,format){
+  if(data.length!=10)return false;
+
   if(format=="MM/DD/YYYY"){
-
+    return await verifyRegex(data,'/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/');
   }else if(format=="DD/MM/YYYY"){
-
+    return await verifyRegex(data,'/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/');
   }else if(format=="YYYY/MM/DD"){
-    
+    return await verifyRegex(data,'/^([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/');
   }
  return true;
 }
@@ -239,4 +217,120 @@ async function verifyDB(collection, data, Query) {
     });
 
   return success;
+}
+
+
+////////////////////////////////////////////////////////////////
+
+
+export const validateRow_N = async (rowNum, data, fileError, template) => {
+  //data is row
+ 
+  let default_message = "At row:" + rowNum + "\n";
+  if (fileError.length) {
+    return (
+      default_message +
+      "Error Type:" +
+      fileError.type +
+      "\n Error message:" +
+      fileError.message +
+      "\n"
+    );
+  }
+  if (data.__parsed_extra) {
+    return default_message + " Extra Information Is Parsed\n";
+  }
+
+  if(!await evaluateExpression(data,template.rule)){
+    return default_message + " Numeric Rule Not Followed\n";
+  }
+};
+
+
+async function evaluateExpression(row,expression) {
+  
+  let x=expression.split('=');
+  let exp=x[0],val=x[1];
+  console.log(x);
+  let lhs,rhs=Number(row[val]);
+
+  let postfix = [];
+  let stack = [];
+  let precedence = { "*": 3, "+": 1, "-": 1 };
+
+  for (let i=0;i<exp.length; i++) {
+
+    if (exp[i]!='+'&&exp[i]!='-'&&exp[i]!='*') {
+      let v="";
+      while(i<exp.length && (exp[i]!='+'&&exp[i]!='-'&&exp[i]!='*'))
+      {
+        v+=exp[i];
+        i++;
+      }
+      i--;
+      postfix.push({type:"data",val:v});
+
+    } else if (exp[i] == "(") {
+      stack.push("(");
+    } else if (exp[i] == ")") {
+      while (stack.length > 0 && stack[stack.length - 1] != "(") {
+        postfix.push({type:"op",val:stack.pop()})
+      }
+      if (stack.length > 0 && stack[stack.length - 1] == "(") {
+        stack.pop();
+      }
+
+    } else {
+      
+      while (stack.length > 0 && precedence[exp[i]] <= precedence[stack[stack.length - 1]]) {
+        postfix.push({type:"op",val:stack.pop()})
+      }
+      stack.push(exp[i]);
+    }
+  }
+  while (stack.length > 0) 
+  {postfix.push({type:"op",val:stack.pop()});}
+
+  console.log("Postfix",postfix);
+  stack = [];
+  for (let c of postfix) {
+    // console.log(stack);
+    if (c.type=='data') {
+      //console.log("putting value of "+c+" "+group[c]);
+      stack.push(Number(row[c.val]));
+    } else {
+      let val1,val2;
+      switch (c.val) {
+        case "*":
+          val2 = stack.pop();
+          val1 = stack.pop();
+          stack.push(val1*val2);
+          break;
+
+        case "+":
+          val2 = stack.pop();
+          val1 = stack.pop();
+          stack.push(val1 + val2);
+          break;
+
+        case "-":
+          val2 = stack.pop();
+          val1 = stack.pop();
+          stack.push(val1 - val2);
+          break;
+
+        default:
+          alert("Unidentified character in expression!" + c);
+      }
+    }
+  }
+  lhs=stack.pop();
+  console.log(lhs,rhs);
+  if(lhs===rhs){
+  
+    return true;
+  }else{
+   
+    return false;
+  }
 }
