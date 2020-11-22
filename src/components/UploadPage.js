@@ -55,6 +55,7 @@ class UploadPage extends Component {
 
   async componentDidMount() {
     var template = database.templates;
+   
     this.setState({templates: template});
     console.log(this.state.templates);
   }

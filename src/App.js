@@ -31,6 +31,7 @@ class App extends Component {
 
   async componentDidMount() {
     database.templates = await getAllTemplates();
+    console.log(database.templates);
     database.collections = await getCollectionList();
     console.log(database.collections);
   }

@@ -15,12 +15,12 @@ class ExtractHeaders extends Component {
     form_submitted: false,
   };
 
- async componentDidMount() {
+  async componentDidMount() {
     var numberOfFields = this.props.location.state.numberOfFields;
     //Number(e.target.elements["number-of-fields"].value);
     let temp = [];
-    for (let field of this.props.location.state.fields){
-       temp.push({
+    for (let field of this.props.location.state.fields) {
+      temp.push({
         headerName: field,
         dataType: "",
         dateType: "",
@@ -29,7 +29,7 @@ class ExtractHeaders extends Component {
         group: "",
         collection: "",
         databaseQuery: "",
-      })
+      });
     }
     console.log(temp);
     await this.setState({
@@ -55,7 +55,8 @@ class ExtractHeaders extends Component {
       fields: this.state.fields,
       groupRelations: this.state.groupRelations,
     };
-    await saveTemplateToDB(final_template);
+    final_template['templateID'] = await saveTemplateToDB(final_template);
+    database.templates.push(final_template);
     alert("Template Saved to DB!");
   };
   handleGroupRelation = (e) => {
@@ -63,6 +64,16 @@ class ExtractHeaders extends Component {
       groupRelations: e.target.value,
     });
   };
+  handleName = (e)=>{
+    this.setState({
+      name:e.target.value
+    })
+  }
+  handleDesc = (e)=>{
+    this.setState({
+      description:e.target.value
+    })
+  }
   render() {
     const renderFields = this.state.fields.map((field, index) => {
       return (
@@ -101,11 +112,21 @@ class ExtractHeaders extends Component {
           <form className="col row s12 m12" onSubmit={this.createFields}>
             <div className="col center s6 m6">
               <label htmlFor="template-name">Enter Template Name:</label>
-              <input id="template-name" name="template-name" required />
+              <input
+                id="template-name"
+                name="template-name"
+                required
+                onChange={this.handleName}
+              />
             </div>
             <div className="col center s6 m6">
               <label htmlFor="template-desc">Enter Template Description:</label>
-              <input id="template-desc" name="template-desc" required />
+              <input
+                id="template-desc"
+                name="template-desc"
+                required
+                onChange={this.handleDesc}
+              />
             </div>
           </form>
         </div>
@@ -113,7 +134,7 @@ class ExtractHeaders extends Component {
           {renderFields}
           {renderGroupRelation}
           <div className="col center s12 m12">
-          <button className="btn light-blue darken-4" onClick={this.onSubmit}>
+            <button className="btn light-blue darken-4" onClick={this.onSubmit}>
               Save Template!
             </button>
           </div>

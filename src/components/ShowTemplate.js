@@ -4,6 +4,7 @@ import ShowTemplateField from "./ShowTemplateField"
 export default class ShowTemplate extends Component {
   state = {
     name: "",
+    templateID:"",
     description: "",
     fields: [],
     groupRelations: "",
@@ -14,12 +15,17 @@ export default class ShowTemplate extends Component {
       (template) => template.templateID == this.props.match.params.id);
     this.setState({
       name: template.name,
+      templateID:template.templateID,
       description: template.description,
       fields: template.fields,
       groupRelations: template.groupRelations,
     });
   }
-
+  goToUploadPage = (e)=>{
+    e.preventDefault();
+    this.props.history.push({
+      pathname: '/upload'});
+  }
   render() {
     const fields = this.state.fields.map((field) => {
       return (
@@ -45,6 +51,11 @@ export default class ShowTemplate extends Component {
               {fields}
             </div>
           </form>
+          <div className="col center s12 m12">
+            <button className="btn light-blue darken-3" onClick={this.goToUploadPage}>
+              Upload Using This Template  
+            </button>
+          </div>
         </div>
       </div>
     );

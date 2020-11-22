@@ -37,7 +37,7 @@ export async function saveTemplateToDB(data) {
     .collection("templates")
     .add(data)
     .then((res) => {
-      return res;
+      return res.id;
     })
     .catch((err) => {
       return Promise.reject(err);

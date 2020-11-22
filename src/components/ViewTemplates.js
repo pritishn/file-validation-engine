@@ -9,12 +9,17 @@ import TemplateCard from "./TemplateCard";
 
 class ViewTemplates extends Component {
   state={
-    searchFieldValue:""
+    searchFieldValue:"",
+    templates:[]
   }
   handleSearch = (e)=> this.setState({searchFieldValue:e.target.value});
+  componentDidMount(){
+    this.setState({
+      templates:database.templates
+    })
+  }
   render() {
-    const templates = database.templates;
-    const temps = templates.map((temp) => {
+    const temps = this.state.templates.map((temp) => {
       return (this.state.searchFieldValue=="" || temp.name.search(this.state.searchFieldValue)!=-1)?(
         <div class="col s4 m4">
           <TemplateCard template_data={temp} />

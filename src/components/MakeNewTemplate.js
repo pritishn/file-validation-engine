@@ -68,7 +68,8 @@ class MakeNewTemplates extends Component {
       fields: this.state.fields,
       groupRelations: this.state.groupRelations,
     };
-    await saveTemplateToDB(final_template);
+    final_template['templateID'] = await saveTemplateToDB(final_template);
+    database.templates.push(final_template);
     alert("Template Saved to DB!");
   };
   handleGroupRelation = (e) => {

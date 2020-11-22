@@ -39,6 +39,7 @@ class ShowTemplateField extends Component {
           name="dateFormat"
           id="dateFormat"
           defaultValue={this.state.dateType}
+          disabled
         />
         <label htmlFor="dateFormat" className="active">Date</label>
       </div>
@@ -55,6 +56,7 @@ class ShowTemplateField extends Component {
             className="validate"
             placeholder="Regex"
             defaultValue={this.state.regex}
+            disabled
           />
           <label htmlFor="regex" className="active">Regex Query</label>
         </div>
@@ -71,6 +73,7 @@ class ShowTemplateField extends Component {
             className="validate"
             placeholder="Database Name"
             defaultValue={this.state.collection}
+            disabled
           />
           
         </div>
@@ -82,6 +85,7 @@ class ShowTemplateField extends Component {
             className="validate"
             placeholder="Database Query"
             defaultValue={this.state.databaseQuery}
+            disabled
           />
           
         </div>
@@ -132,7 +136,8 @@ class ShowTemplateField extends Component {
                   className="filled-in"
                   name="required"
                   type="checkbox"
-                  defaultChecked={this.state.required}
+                  defaultChecked={this.state.required==true?"true":"false"}
+                  disabled
                 />
                 <span>Required</span>
               </label>
