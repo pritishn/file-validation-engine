@@ -2,11 +2,11 @@ import { putHistory } from "./firebase/firebase-intercations";
 
 const AWS = require("aws-sdk");
 const fs = require("fs");
-const ID = "AKIAWZBXEMJZ2HZK6OUT";
-const SECRET = "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";
+const ID = "";
+const SECRET = "";
 
 // The name of the bucket that you have created
-const BUCKET_NAME = "sudocoders";
+const BUCKET_NAME = "";
 
 const s3 = new AWS.S3({
   accessKeyId: ID,
